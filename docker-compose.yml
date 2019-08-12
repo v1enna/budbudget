@@ -1,0 +1,28 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+    restart: always
+    networks: 
+      - db-network
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    restart: always
+    networks: 
+      - db-network
+
+volumes:
+  postgres_data:
+    external: true
+
+networks: 
+  db-network:
