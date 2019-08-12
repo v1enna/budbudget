@@ -28,7 +28,10 @@ namespace BudBudget.REST
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+			.AddJsonOptions( // To solve reference looping in the models
+			options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+		); ;
 
 			// Swagger
 			services.AddSwaggerGen(c =>
@@ -46,7 +49,7 @@ namespace BudBudget.REST
 
 			string connectionString = $"Host={host};Port={port};Database={database};Username={username};Password={password}";
 
-			services.AddDbContext<ValuesContext>(options => options.UseNpgsql(connectionString));
+			services.AddDbContext<BudBudgetContext>(options => options.UseNpgsql(connectionString));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
