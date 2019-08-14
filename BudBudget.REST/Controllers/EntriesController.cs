@@ -15,24 +15,12 @@ namespace BudBudget.REST.Controllers
 	[Authorize]
 	[Route("api/[controller]")]
 	[ApiController]
-	public class EntriesController : ControllerBase
+	public class EntriesController : BaseController
 	{
-		protected readonly BudBudgetContext context;
-
-		protected IMapper mapper;
-
-		protected int _userId = -1;
-		public int UserId
-		{
-			get => _userId > 0 ? _userId : Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
-			set => _userId = value;
-		}
 
 		public EntriesController(BudBudgetContext context, IMapper mapper)
-		{
-			this.context = context;
-			this.mapper = mapper;
-		}
+			: base(context, mapper)
+		{ }
 
 		/// <summary>
 		/// Get all the entries of the authenticated user.

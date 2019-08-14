@@ -12,11 +12,8 @@ namespace BudBudget.REST.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class AuthController : ControllerBase
+	public class AuthController : BaseController
 	{
-		private readonly BudBudgetContext context;
-		private IMapper mapper;
-
 		private string HashPassword(string password)
 		{
 			StringBuilder stringHash = new StringBuilder();
@@ -32,10 +29,8 @@ namespace BudBudget.REST.Controllers
 		}
 
 		public AuthController(BudBudgetContext context, IMapper mapper)
-		{
-			this.context = context;
-			this.mapper = mapper;
-		}
+		 : base(context, mapper)
+		{ }
 
 		[HttpPost("login")]
 		public async Task<ActionResult<SessionDto>> Login([FromBody] UserDto user)
