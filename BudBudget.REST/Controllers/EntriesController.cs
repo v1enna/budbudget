@@ -42,11 +42,6 @@ namespace BudBudget.REST.Controllers
 				.ToListAsync());
 		}
 
-		private int loggedUserId()
-		{
-			return Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
-		}
-
 		/// <summary>
 		/// Get a single entry.
 		/// </summary>
@@ -68,6 +63,7 @@ namespace BudBudget.REST.Controllers
 		/// <summary>
 		/// Create a new Entry.
 		/// If the id of the entry already exist it will return 404.
+		/// If no id is passed it will generate one.
 		/// </summary>
 		/// <param name="entry"></param>
 		/// <returns></returns>
@@ -87,7 +83,8 @@ namespace BudBudget.REST.Controllers
 				return BadRequest();
 			}
 
-			return CreatedAtAction(nameof(GetEntry), new { id = newEntry.Id }, mapper.Map<EntryDto>(newEntry));
+			return CreatedAtAction(nameof(GetEntry), new { id = newEntry.Id }
+				, mapper.Map<EntryDto>(newEntry));
 		}
 
 		/// <summary>
