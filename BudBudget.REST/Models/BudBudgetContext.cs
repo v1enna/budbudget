@@ -11,18 +11,17 @@ namespace BudBudget.REST.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Entry>()
-				.Property(e => e.CreatedAt)
-				.HasDefaultValueSql("CURRENT_TIMESTAMP");
-			modelBuilder.Entity<Entry>()
-				.Property(e => e.UpdatedAt)
-				.HasDefaultValueSql("CURRENT_TIMESTAMP");
-			modelBuilder.Entity<Entry>()
-			.Property(e => e.Deleted)
-			.HasDefaultValue(false);
-			modelBuilder.Entity<Entry>()
-			.Property(e => e.Deleted)
-			.HasDefaultValue(false);
+			modelBuilder.Entity<Entry>(entry =>
+			{
+				entry.Property(e => e.CreatedAt)
+					.HasDefaultValueSql("CURRENT_TIMESTAMP");
+				entry.Property(e => e.UpdatedAt)
+					.HasDefaultValueSql("CURRENT_TIMESTAMP");
+				entry.Property(e => e.Deleted)
+					.HasDefaultValue(false);
+				entry.Property(e => e.Deleted)
+					.HasDefaultValue(false);
+			});
 
 			modelBuilder.Entity<User>()
 				.HasAlternateKey(u => u.Username)

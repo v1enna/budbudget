@@ -45,6 +45,8 @@ namespace BudBudget.REST.Authentication
 				};
 					var claimsIdentity = new ClaimsIdentity(claims);
 					Context.User.AddIdentity(claimsIdentity);
+					// Don't remove. Needed for correct authentication
+					Context.User.AddIdentity(new GenericIdentity("authorized"));
 
 					return AuthenticateResult.Success(new AuthenticationTicket(Context.User, DbSessionOption.AuthenticationScheme));
 				}

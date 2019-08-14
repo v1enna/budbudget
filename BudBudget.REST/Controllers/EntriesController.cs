@@ -17,9 +17,16 @@ namespace BudBudget.REST.Controllers
 	[ApiController]
 	public class EntriesController : ControllerBase
 	{
-		private readonly BudBudgetContext context;
+		protected readonly BudBudgetContext context;
 
-		private IMapper mapper;
+		protected IMapper mapper;
+
+		protected int _userId = -1;
+		public int UserId
+		{
+			get => _userId > 0 ? _userId : Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
+			set => _userId = value;
+		}
 
 		public EntriesController(BudBudgetContext context, IMapper mapper)
 		{
@@ -28,14 +35,28 @@ namespace BudBudget.REST.Controllers
 		}
 
 		/// <summary>
-		/// Get all the entries.
+		/// Get all the entries of the authenticated user.
 		/// </summary>
+		/// <param name="lastUpdatedAt">Get entries from this date.</param>
+		/// <param name="deleted">If true get also the deleted entries. DEFAULT: false</param>
 		/// <returns></returns>
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<EntryDto>>> GetEntries()
+		public async Task<ActionResult<IEnumerable<EntryDto>>> GetEntries(DateTime lastUpdatedAt, bool deleted = false)
 		{
-			Console.WriteLine("Sei l'utente con ID: " + HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
-			return Ok(await context.Entries.ProjectTo<EntryDto>(mapper.ConfigurationProvider).ToListAsync());
+
+			return Ok(await context.Entries
+				.Where(e =>
+					e.OwnerId == this.UserId &&
+					(deleted ? true : !e.Deleted) &&
+					e.UpdatedAt > lastUpdatedAt
+				)
+				.ProjectTo<EntryDto>(mapper.ConfigurationProvider)
+				.ToListAsync());
+		}
+
+		private int loggedUserId()
+		{
+			return Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
 		}
 
 		/// <summary>
@@ -46,37 +67,94 @@ namespace BudBudget.REST.Controllers
 		[HttpGet("{id}")]
 		public async Task<ActionResult<EntryDto>> GetEntry(Guid id)
 		{
-			var e = await context.Entries
-				.ProjectTo<EntryDto>(mapper.ConfigurationProvider)
-				.SingleAsync(entry => entry.Id == id);
-			// .FindAsync(id);
-			if (e == null)
+			var entry = await context.Entries
+				.SingleOrDefaultAsync(e => e.Id == id && e.OwnerId == this.UserId);
+
+			if (entry == null)
 			{
 				return NotFound();
 			}
-			return Ok(e);
+			return Ok(mapper.Map<EntryDto>(entry));
 		}
 
-		// POST api/values
+		/// <summary>
+		/// Create a new Entry.
+		/// If the id of the entry already exist it will return 404.
+		/// </summary>
+		/// <param name="entry"></param>
+		/// <returns></returns>
 		[HttpPost]
-		public async Task<ActionResult<Entry>> PostEntry([FromBody] EntryDto entry)
+		public async Task<ActionResult<EntryDto>> PostEntry([FromBody] EntryDto entry)
 		{
-			context.Entries.Add(mapper.Map<Entry>(entry));
+			Entry newEntry = mapper.Map<Entry>(entry);
+			newEntry.OwnerId = this.UserId;
+			if (newEntry.Id == null) newEntry.Id = Guid.NewGuid();
+			context.Entries.Add(newEntry);
+			try
+			{
+				await context.SaveChangesAsync();
+			}
+			catch
+			{
+				return BadRequest();
+			}
+
+			return CreatedAtAction(nameof(GetEntry), new { id = newEntry.Id }, mapper.Map<EntryDto>(newEntry));
+		}
+
+		/// <summary>
+		/// Update an entry.
+		/// Require a full object or will insert null.
+		/// </summary>
+		/// <param name="entry"></param>
+		[HttpPut]
+		public async Task<ActionResult<EntryDto>> UpdateEntry([FromBody] EntryDto entry)
+		{
+			Entry existingEntry = await context.Entries.FindAsync(entry.Id);
+
+			if (existingEntry == null)
+			{
+				return BadRequest();
+			}
+			if (existingEntry.OwnerId != this.UserId)
+			{
+				return Forbid();
+			}
+
+			Entry newEntry = mapper.Map(entry, existingEntry);
+			newEntry.UpdatedAt = DateTime.UtcNow;
+
+			context.Entries.Update(newEntry);
 			await context.SaveChangesAsync();
 
-			return CreatedAtAction(nameof(GetEntry), new { id = entry.Id }, entry);
+			return Ok(mapper.Map<EntryDto>(newEntry));
 		}
 
-		// PUT api/values/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
-		{
-		}
-
-		// DELETE api/values/5
+		/// <summary>
+		/// Delete an entry.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns>Return the deleted entry.</returns>
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<ActionResult<EntryDto>> Delete(Guid id)
 		{
+			Entry entry = await context.Entries.FindAsync(id);
+
+			if (entry == null)
+			{
+				return BadRequest();
+			}
+			if (entry.OwnerId != this.UserId)
+			{
+				return Forbid();
+			}
+
+			entry.Deleted = true;
+
+			context.Entries.Update(entry);
+			await context.SaveChangesAsync();
+
+			return Ok(mapper.Map<EntryDto>(entry));
 		}
 	}
 }
