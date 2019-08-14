@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BudBudget.REST.Authentication;
 using BudBudget.REST.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
+using BudBudget.REST.Dtos;
 
 namespace BudBudget.REST
 {
@@ -29,17 +32,25 @@ namespace BudBudget.REST
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-			.AddJsonOptions( // To solve reference looping in the models
-			options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-		); ;
+				.AddJsonOptions( // To solve reference looping in the models
+					options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+			);
+
+			services.AddAuthentication(x =>
+			{
+				x.DefaultAuthenticateScheme = DbSessionOption.AuthenticationScheme;
+				x.DefaultChallengeScheme = DbSessionOption.AuthenticationScheme;
+			}).AddDbSession(o => { });
+
+			services.AddAutoMapper(typeof(AutoMapperProfile));
 
 			// Swagger
-			services.AddSwaggerGen(c =>
+			services.AddSwaggerGen(options =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "BudBudget API", Version = "v1" });
+				options.SwaggerDoc("v1", new OpenApiInfo { Title = "BudBudget API", Version = "v1" });
 			});
 
-			// Context configuration
+			// Database configuration
 			var pgsqlConfiguration = Configuration.GetSection("PGSQL");
 			string host = Environment.GetEnvironmentVariable("PGSQL_HOST") ?? pgsqlConfiguration?["host"];
 			string port = Environment.GetEnvironmentVariable("PGSQL_PORT") ?? pgsqlConfiguration?["port"];
@@ -72,6 +83,7 @@ namespace BudBudget.REST
 				app.UseHsts();
 			}
 
+			app.UseAuthentication();
 			// app.UseHttpsRedirection();
 			app.UseMvc();
 		}

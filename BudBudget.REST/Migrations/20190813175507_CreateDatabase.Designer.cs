@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BudBudget.REST.Migrations
 {
     [DbContext(typeof(BudBudgetContext))]
-    [Migration("20190812193232_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20190813175507_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,6 +82,20 @@ namespace BudBudget.REST.Migrations
                     b.ToTable("Entries");
                 });
 
+            modelBuilder.Entity("BudBudget.REST.Models.Session", b =>
+                {
+                    b.Property<Guid>("SID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("SID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Sessions");
+                });
+
             modelBuilder.Entity("BudBudget.REST.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -123,6 +137,14 @@ namespace BudBudget.REST.Migrations
                     b.HasOne("BudBudget.REST.Models.Category", "SubCategory")
                         .WithMany()
                         .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BudBudget.REST.Models.Session", b =>
+                {
+                    b.HasOne("BudBudget.REST.Models.User", "User")
+                        .WithMany("Sessions")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

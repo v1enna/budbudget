@@ -13,11 +13,21 @@ services:
     networks: 
       - db-network
 
-  adminer:
-    image: adminer
+  # adminer:
+  #   image: adminer
+  #   ports:
+  #     - 8080:8080
+  #   # restart: always
+  #   networks: 
+  #     - db-network
+
+  pgaadmin:
+    image: dpage/pgadmin4
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: aaa@domain.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
     ports:
-      - 8080:8080
-    # restart: always
+      - 8080:80
     networks: 
       - db-network
 

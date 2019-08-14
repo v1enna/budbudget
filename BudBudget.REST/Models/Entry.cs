@@ -6,7 +6,7 @@ namespace BudBudget.REST.Models
 	public class Entry
 	{
 		[Key]
-		public Guid Id { get; set; }
+		public Guid Id { get; set; } = Guid.NewGuid();
 		[Required]
 		public int OwnerId { get; set; }
 		public User Owner { get; set; }

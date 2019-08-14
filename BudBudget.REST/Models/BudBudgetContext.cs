@@ -20,6 +20,9 @@ namespace BudBudget.REST.Models
 			modelBuilder.Entity<Entry>()
 			.Property(e => e.Deleted)
 			.HasDefaultValue(false);
+			modelBuilder.Entity<Entry>()
+			.Property(e => e.Deleted)
+			.HasDefaultValue(false);
 
 			modelBuilder.Entity<User>()
 				.HasAlternateKey(u => u.Username)
@@ -29,5 +32,6 @@ namespace BudBudget.REST.Models
 		public DbSet<Entry> Entries { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Session> Sessions { get; set; }
 	}
 }
