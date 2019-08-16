@@ -11,8 +11,8 @@ services:
       PGSQL_DATABASE: postgres
       PGSQL_USERNAME: postgres
       PGSQL_PASSWORD: postgres
-      APPLICATIONURLS: http://0.0.0.0:5000 # Set the port here for the server. Don't change the ip
-      ASPNETCORE_ENVIRONMENT: Production
+      APPLICATIONURLS: http://0.0.0.0:5000 # Set the port for the server. Don't change the ip 0.0.0.0
+      ASPNETCORE_ENVIRONMENT: Development
     networks: 
       - db-network
 
@@ -26,6 +26,16 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    networks: 
+      - db-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: aaa@domain.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
+    ports:
+      - 8080:80
     networks: 
       - db-network
 

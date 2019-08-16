@@ -1,4 +1,4 @@
-# Dockerfile for RELEASE
+# Docker file for DEBUG
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
 
@@ -8,10 +8,10 @@ COPY ["BudBudget.REST.csproj", "./"]
 RUN dotnet restore "./BudBudget.REST.csproj"
 COPY . .
 WORKDIR /src/.
-RUN dotnet build "BudBudget.REST.csproj" -c Release -o /app
+RUN dotnet build "BudBudget.REST.csproj" -c Debug -o /app
 
 FROM build AS publish
-RUN dotnet publish "BudBudget.REST.csproj" -c Release -o /app
+RUN dotnet publish "BudBudget.REST.csproj" -c Debug -o /app
 
 FROM base AS final
 WORKDIR /app
