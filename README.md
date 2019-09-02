@@ -8,7 +8,7 @@
 
 Build the image with
 
-	docker build -f "BudBudget.REST/Dockerfile" -t budbudget.rest
+	docker build -f "BudBudget.REST/Dockerfile" -t budbudget.rest BudBudget.REST
 
 To run it you can use docker compose
 
