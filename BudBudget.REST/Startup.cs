@@ -88,6 +88,12 @@ namespace BudBudget.REST
 			app.UseAuthentication();
 			// app.UseHttpsRedirection();
 			app.UseMvc();
+
+			using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			{
+				scope.ServiceProvider.GetService<BudBudgetContext>().Database.Migrate();
+			}
+
 		}
 	}
 }

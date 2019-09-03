@@ -2,7 +2,7 @@
 version: '3'
 services:
   budbudget.rest:
-    image: budbudget.rest:dev
+    image: budbudget.rest
     ports:
       - 5000:5000
     environment:
