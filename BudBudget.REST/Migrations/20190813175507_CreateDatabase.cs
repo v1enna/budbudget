@@ -15,7 +15,7 @@ namespace BudBudget.REST.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Username = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: true)
+                    PasswordHash = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
