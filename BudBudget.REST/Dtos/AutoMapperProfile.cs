@@ -13,6 +13,8 @@ namespace BudBudget.REST.Dtos
 			CreateMap<SessionDto, Session>();
 			CreateMap<Entry, EntryDto>();
 			CreateMap<EntryDto, Entry>();
+			CreateMap<EntryFetchAllDto, Entry>();
+			CreateMap<Entry, EntryFetchAllDto>();
 			CreateMap<Category, CategoryDto>();
 			CreateMap<CategoryDto, Category>();
 		}

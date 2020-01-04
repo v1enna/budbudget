@@ -141,5 +141,23 @@ namespace BudBudget.REST.Controllers
 
 			return Ok(mapper.Map<EntryDto>(entry));
 		}
+
+		/// <summary>
+		/// Get all the entries with all the attributes of the authenticated user.
+		/// </summary>
+		/// <param name="lastUpdatedAt">Get entries from this date.</param>
+		/// <returns></returns>
+		[HttpGet("fetchAll")]
+		public async Task<ActionResult<IEnumerable<EntryFetchAllDto>>> FetchAll(DateTime lastUpdatedAt)
+		{
+
+			return Ok(await context.Entries
+				.Where(e =>
+					e.OwnerId == this.UserId &&
+					e.UpdatedAt > lastUpdatedAt
+				)
+				.ProjectTo<EntryFetchAllDto>(mapper.ConfigurationProvider)
+				.ToListAsync());
+		}
 	}
 }
