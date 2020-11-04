@@ -99,7 +99,7 @@ namespace BudBudget.REST.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Password");
+                    b.Property<string>("PasswordHash");
 
                     b.Property<string>("Username")
                         .IsRequired();
