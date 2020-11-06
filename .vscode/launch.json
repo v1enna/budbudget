@@ -1,0 +1,55 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Docker: Launch .NET Core (Preview)",
+			"type": "docker-coreclr",
+			"request": "launch",
+			"preLaunchTask": "build",
+			"appFolder": "D:/Progetti_Visual_Studio/budbudget/BudBudget.REST",
+			"appProject": "D:/Progetti_Visual_Studio/budbudget/BudBudget.REST/BudBudget.REST.csproj",
+			"dockerBuild": {},
+			"dockerRun": {
+				"ports": [
+					{
+						"hostPort": "5000",
+						"containerPort": "5000"
+					}
+				],
+				"env": {
+					"APPLICATIONURLS": "http://0.0.0.0:5000",
+					"ASPNETCORE_ENVIRONMENT": "Development"
+				}
+			}
+		},
+		{
+			"name": ".NET Core Launch (web)",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "build",
+			"program": "${workspaceFolder}/BudBudget.REST/bin/Debug/netcoreapp3.1/BudBudget.REST.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/BudBudget.REST",
+			"stopAtEntry": false,
+			"serverReadyAction": {
+				"action": "openExternally",
+				"pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
+			},
+			"env": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"sourceFileMap": {
+				"/Views": "${workspaceFolder}/Views"
+			}
+		},
+		{
+			"name": ".NET Core Attach",
+			"type": "coreclr",
+			"request": "attach",
+			"processId": "${command:pickProcess}"
+		}
+	]
+}

@@ -4,10 +4,6 @@ project.lock.json
 .DS_Store
 *.pyc
 
-# Visual Studio Code
-.vscode
-.devcontainer
-
 # User-specific files
 *.suo
 *.user

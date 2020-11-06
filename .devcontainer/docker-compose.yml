@@ -2,12 +2,14 @@
 version: '3'
 services:
   budbudget.rest:
-    image: budbudget.rest:dev
-    build: 
-      context: ./BudBudget.REST
-      dockerfile: Dockerfile.dev
+    image: budbudget.rest:vscode
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 5000:5000
+    volumes:
+      - ..:/workspace
     environment:
       PGSQL_HOST: postgres
       PGSQL_PORT: 5432
