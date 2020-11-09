@@ -1,15 +1,17 @@
 # prettier-ignore
 version: '3'
 services:
-  budbudget.rest:
-    image: budbudget.rest:vscode
+  budbudget.vscode:
+    image: budbudget.vscode
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 5000:5000
+      - 3000:3000
     volumes:
       - ..:/workspace
+    command: /bin/sh -c "cd /workspace/BudBudget.WEB; yarn start"
     environment:
       PGSQL_HOST: postgres
       PGSQL_PORT: 5432
