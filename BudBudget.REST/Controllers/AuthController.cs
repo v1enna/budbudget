@@ -56,7 +56,7 @@ namespace BudBudget.REST.Controllers
 			await context.Sessions.AddAsync(session);
 			await context.SaveChangesAsync();
 
-			return Ok(mapper.Map<SessionDto>(session));
+			return mapper.Map<SessionDto>(session);
 		}
 
 		[HttpPost("register")]
@@ -80,7 +80,7 @@ namespace BudBudget.REST.Controllers
 			await context.Users.AddAsync(newUser);
 			await context.SaveChangesAsync();
 
-			return Ok(mapper.Map<UserDto>(newUser));
+			return mapper.Map<UserDto>(newUser);
 		}
 	}
 }

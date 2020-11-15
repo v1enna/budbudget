@@ -24,8 +24,8 @@ namespace BudBudget.REST.Models
 			});
 
 			modelBuilder.Entity<User>()
-				.HasAlternateKey(u => u.Username)
-				.HasName("AK_Username");
+				.HasIndex(u => u.Username)
+				.IsUnique();
 		}
 
 		public DbSet<Entry> Entries { get; set; }

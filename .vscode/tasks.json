@@ -36,9 +36,25 @@
 				"run",
 				"${workspaceFolder}/BudBudget.REST/BudBudget.REST.csproj",
 				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary",
+				"/consoleloggerparameters:NoSummary"
 			],
 			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "test",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"test",
+				"${workspaceFolder}/BudBudget.REST/",
+				"/p:CollectCoverage=true",
+				"/p:CoverletOutputFormat=lcov"
+			],
+			"problemMatcher": "$msCompile",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
 		}
 	]
 }

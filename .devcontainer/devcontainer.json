@@ -23,7 +23,9 @@
 		"k--kato.docomment",
 		"eamodio.gitlens",
 		"dsznajder.es7-react-js-snippets",
-		"esbenp.prettier-vscode"
+		"esbenp.prettier-vscode",
+		"formulahendry.dotnet-test-explorer",
+		"ryanluker.vscode-coverage-gutters"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

@@ -27,11 +27,10 @@ namespace BudBudget.REST.Controllers
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
 		{
-			return Ok(await context.Categories
+			return await context.Categories
 				.Where(c => c.OwnerId == this.UserId)
 				.ProjectTo<CategoryDto>(mapper.ConfigurationProvider)
-				.ToListAsync()
-			);
+				.ToListAsync();
 		}
 
 		/// <summary>
@@ -40,7 +39,7 @@ namespace BudBudget.REST.Controllers
 		/// <param name="id">The GUID of the category.</param>
 		/// <returns>A single caregory.</returns>
 		[HttpGet("{id}")]
-		public async Task<ActionResult<EntryDto>> GetCategory(Guid id)
+		public async Task<ActionResult<CategoryDto>> GetCategory(Guid id)
 		{
 			var category = await context.Categories
 				.SingleOrDefaultAsync(c => c.Id == id && c.OwnerId == this.UserId);
@@ -49,7 +48,7 @@ namespace BudBudget.REST.Controllers
 			{
 				return NotFound();
 			}
-			return Ok(mapper.Map<CategoryDto>(category));
+			return mapper.Map<CategoryDto>(category);
 		}
 
 		/// <summary>
@@ -103,7 +102,7 @@ namespace BudBudget.REST.Controllers
 			context.Categories.Update(newCategory);
 			await context.SaveChangesAsync();
 
-			return Ok(mapper.Map<CategoryDto>(newCategory));
+			return mapper.Map<CategoryDto>(newCategory);
 		}
 
 		/// <summary>
@@ -128,7 +127,7 @@ namespace BudBudget.REST.Controllers
 			context.Categories.Remove(category);
 			await context.SaveChangesAsync();
 
-			return Ok(mapper.Map<CategoryDto>(category));
+			return mapper.Map<CategoryDto>(category);
 		}
 	}
 }

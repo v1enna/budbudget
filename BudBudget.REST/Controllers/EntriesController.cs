@@ -32,14 +32,14 @@ namespace BudBudget.REST.Controllers
 		public async Task<ActionResult<IEnumerable<EntryDto>>> GetEntries(DateTime lastUpdatedAt, bool deleted = false)
 		{
 
-			return Ok(await context.Entries
+			return await context.Entries
 				.Where(e =>
 					e.OwnerId == this.UserId &&
 					(deleted ? true : !e.Deleted) &&
 					e.UpdatedAt > lastUpdatedAt
 				)
 				.ProjectTo<EntryDto>(mapper.ConfigurationProvider)
-				.ToListAsync());
+				.ToListAsync();
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace BudBudget.REST.Controllers
 			{
 				return NotFound();
 			}
-			return Ok(mapper.Map<EntryDto>(entry));
+			return mapper.Map<EntryDto>(entry);
 		}
 
 		/// <summary>
@@ -112,7 +112,7 @@ namespace BudBudget.REST.Controllers
 			context.Entries.Update(newEntry);
 			await context.SaveChangesAsync();
 
-			return Ok(mapper.Map<EntryDto>(newEntry));
+			return mapper.Map<EntryDto>(newEntry);
 		}
 
 		/// <summary>
@@ -139,7 +139,7 @@ namespace BudBudget.REST.Controllers
 			context.Entries.Update(entry);
 			await context.SaveChangesAsync();
 
-			return Ok(mapper.Map<EntryDto>(entry));
+			return mapper.Map<EntryDto>(entry);
 		}
 
 		/// <summary>
@@ -151,13 +151,13 @@ namespace BudBudget.REST.Controllers
 		public async Task<ActionResult<IEnumerable<EntryFetchAllDto>>> FetchAll(DateTime lastUpdatedAt)
 		{
 
-			return Ok(await context.Entries
+			return await context.Entries
 				.Where(e =>
 					e.OwnerId == this.UserId &&
 					e.UpdatedAt > lastUpdatedAt
 				)
 				.ProjectTo<EntryFetchAllDto>(mapper.ConfigurationProvider)
-				.ToListAsync());
+				.ToListAsync();
 		}
 	}
 }
