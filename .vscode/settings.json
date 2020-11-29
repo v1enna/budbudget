@@ -10,5 +10,6 @@
 		"coverage.xml",
 		"jacoco.xml",
 		"coverage.info"
-	]
+	],
+	"coverage-gutters.showRulerCoverage": true
 }

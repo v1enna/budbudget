@@ -77,9 +77,11 @@ namespace BudBudget.REST.Controllers
 				Username = user.Username,
 				PasswordHash = HashPassword(user.Password)
 			};
-			await context.Users.AddAsync(newUser);
-			await context.SaveChangesAsync();
+			var nullCategory = new Category() { Name = "", Description = "", Owner = newUser };
 
+			context.Users.Add(newUser);
+			context.Categories.Add(nullCategory);
+			context.SaveChanges();
 			return mapper.Map<UserDto>(newUser);
 		}
 	}

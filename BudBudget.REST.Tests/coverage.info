@@ -133,27 +133,27 @@ DA:27,1
 DA:28,1
 DA:29,1
 FN:30,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Entry> BudBudget.REST.Models.BudBudgetContext::get_Entries()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Entry> BudBudget.REST.Models.BudBudgetContext::get_Entries()
-DA:31,0
+FNDA:7,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Entry> BudBudget.REST.Models.BudBudgetContext::get_Entries()
+DA:31,7
 FN:31,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.User> BudBudget.REST.Models.BudBudgetContext::get_Users()
-FNDA:15,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.User> BudBudget.REST.Models.BudBudgetContext::get_Users()
-DA:32,15
+FNDA:13,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.User> BudBudget.REST.Models.BudBudgetContext::get_Users()
+DA:32,13
 FN:32,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Category> BudBudget.REST.Models.BudBudgetContext::get_Categories()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Category> BudBudget.REST.Models.BudBudgetContext::get_Categories()
-DA:33,0
+FNDA:7,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Category> BudBudget.REST.Models.BudBudgetContext::get_Categories()
+DA:33,7
 FN:33,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Session> BudBudget.REST.Models.BudBudgetContext::get_Sessions()
-FNDA:7,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Session> BudBudget.REST.Models.BudBudgetContext::get_Sessions()
-DA:34,7
+FNDA:8,Microsoft.EntityFrameworkCore.DbSet`1<BudBudget.REST.Models.Session> BudBudget.REST.Models.BudBudgetContext::get_Sessions()
+DA:34,8
 FN:8,System.Void BudBudget.REST.Models.BudBudgetContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<BudBudget.REST.Models.BudBudgetContext>)
 FNDA:6,System.Void BudBudget.REST.Models.BudBudgetContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<BudBudget.REST.Models.BudBudgetContext>)
 DA:9,6
 DA:10,12
 LF:22
-LH:20
+LH:22
 BRF:0
 BRH:0
 FNF:6
-FNH:4
+FNH:6
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Models\Category.cs
 FN:8,System.Guid BudBudget.REST.Models.Category::get_Id()
@@ -183,8 +183,8 @@ FN:8,System.Guid BudBudget.REST.Models.Entry::get_Id()
 FNDA:0,System.Guid BudBudget.REST.Models.Entry::get_Id()
 DA:9,0
 FN:10,System.Int32 BudBudget.REST.Models.Entry::get_OwnerId()
-FNDA:0,System.Int32 BudBudget.REST.Models.Entry::get_OwnerId()
-DA:11,0
+FNDA:10,System.Int32 BudBudget.REST.Models.Entry::get_OwnerId()
+DA:11,10
 FN:11,BudBudget.REST.Models.User BudBudget.REST.Models.Entry::get_Owner()
 FNDA:0,BudBudget.REST.Models.User BudBudget.REST.Models.Entry::get_Owner()
 DA:12,0
@@ -222,11 +222,11 @@ FN:25,System.Boolean BudBudget.REST.Models.Entry::get_Deleted()
 FNDA:0,System.Boolean BudBudget.REST.Models.Entry::get_Deleted()
 DA:26,0
 LF:14
-LH:0
+LH:1
 BRF:0
 BRH:0
 FNF:14
-FNH:0
+FNH:1
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Models\Session.cs
 FN:8,System.Guid BudBudget.REST.Models.Session::get_SID()
@@ -236,25 +236,25 @@ FN:9,System.Int32 BudBudget.REST.Models.Session::get_UserId()
 FNDA:0,System.Int32 BudBudget.REST.Models.Session::get_UserId()
 DA:10,0
 FN:10,BudBudget.REST.Models.User BudBudget.REST.Models.Session::get_User()
-FNDA:0,BudBudget.REST.Models.User BudBudget.REST.Models.Session::get_User()
-DA:11,0
+FNDA:2,BudBudget.REST.Models.User BudBudget.REST.Models.Session::get_User()
+DA:11,2
 LF:3
-LH:0
+LH:1
 BRF:0
 BRH:0
 FNF:3
-FNH:0
+FNH:1
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Models\User.cs
 FN:8,System.Int32 BudBudget.REST.Models.User::get_Id()
-FNDA:0,System.Int32 BudBudget.REST.Models.User::get_Id()
-DA:9,0
+FNDA:3,System.Int32 BudBudget.REST.Models.User::get_Id()
+DA:9,3
 FN:9,System.String BudBudget.REST.Models.User::get_Username()
 FNDA:6,System.String BudBudget.REST.Models.User::get_Username()
 DA:10,6
 FN:10,System.String BudBudget.REST.Models.User::get_PasswordHash()
-FNDA:0,System.String BudBudget.REST.Models.User::get_PasswordHash()
-DA:11,0
+FNDA:4,System.String BudBudget.REST.Models.User::get_PasswordHash()
+DA:11,4
 FN:12,System.Collections.Generic.ICollection`1<BudBudget.REST.Models.Entry> BudBudget.REST.Models.User::get_Entries()
 FNDA:0,System.Collections.Generic.ICollection`1<BudBudget.REST.Models.Entry> BudBudget.REST.Models.User::get_Entries()
 DA:13,0
@@ -265,11 +265,11 @@ FN:14,System.Collections.Generic.ICollection`1<BudBudget.REST.Models.Session> Bu
 FNDA:0,System.Collections.Generic.ICollection`1<BudBudget.REST.Models.Session> BudBudget.REST.Models.User::get_Sessions()
 DA:15,0
 LF:6
-LH:1
+LH:3
 BRF:0
 BRH:0
 FNF:6
-FNH:1
+FNH:3
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Migrations\20190813175507_CreateDatabase.cs
 FN:9,System.Void BudBudget.REST.Migrations.CreateDatabase::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
@@ -677,20 +677,20 @@ FNH:0
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Dtos\AutoMapperProfile.cs
 FN:7,System.Void BudBudget.REST.Dtos.AutoMapperProfile::.ctor()
-FNDA:3,System.Void BudBudget.REST.Dtos.AutoMapperProfile::.ctor()
-DA:8,3
-DA:9,3
-DA:10,3
-DA:11,3
-DA:12,3
-DA:13,3
-DA:14,3
-DA:15,3
-DA:16,3
-DA:17,3
-DA:18,3
-DA:19,3
-DA:20,3
+FNDA:5,System.Void BudBudget.REST.Dtos.AutoMapperProfile::.ctor()
+DA:8,5
+DA:9,5
+DA:10,5
+DA:11,5
+DA:12,5
+DA:13,5
+DA:14,5
+DA:15,5
+DA:16,5
+DA:17,5
+DA:18,5
+DA:19,5
+DA:20,5
 LF:13
 LH:13
 BRF:0
@@ -787,8 +787,8 @@ FNH:0
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Dtos\SessionDto.cs
 FN:6,System.Guid BudBudget.REST.Dtos.SessionDto::get_SID()
-FNDA:3,System.Guid BudBudget.REST.Dtos.SessionDto::get_SID()
-DA:7,3
+FNDA:4,System.Guid BudBudget.REST.Dtos.SessionDto::get_SID()
+DA:7,4
 LF:1
 LH:1
 BRF:0
@@ -798,11 +798,11 @@ FNH:1
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Dtos\UserDto.cs
 FN:4,System.String BudBudget.REST.Dtos.UserDto::get_Username()
-FNDA:24,System.String BudBudget.REST.Dtos.UserDto::get_Username()
-DA:5,24
+FNDA:19,System.String BudBudget.REST.Dtos.UserDto::get_Username()
+DA:5,19
 FN:5,System.String BudBudget.REST.Dtos.UserDto::get_Password()
-FNDA:17,System.String BudBudget.REST.Dtos.UserDto::get_Password()
-DA:6,17
+FNDA:15,System.String BudBudget.REST.Dtos.UserDto::get_Password()
+DA:6,15
 LF:2
 LH:2
 BRF:0
@@ -812,25 +812,25 @@ FNH:2
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Controllers\AuthController.cs
 FN:17,System.String BudBudget.REST.Controllers.AuthController::HashPassword(System.String)
-FNDA:6,System.String BudBudget.REST.Controllers.AuthController::HashPassword(System.String)
-DA:18,6
-DA:19,6
-DA:20,6
-DA:21,6
-DA:22,6
-DA:23,780
-DA:24,384
-DA:25,384
-DA:26,384
-DA:27,6
-DA:28,6
-DA:29,6
-BRDA:23,76,1,384
-BRDA:23,76,0,6
+FNDA:4,System.String BudBudget.REST.Controllers.AuthController::HashPassword(System.String)
+DA:18,4
+DA:19,4
+DA:20,4
+DA:21,4
+DA:22,4
+DA:23,520
+DA:24,256
+DA:25,256
+DA:26,256
+DA:27,4
+DA:28,4
+DA:29,4
+BRDA:23,76,1,256
+BRDA:23,76,0,4
 FN:31,System.Void BudBudget.REST.Controllers.AuthController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
-FNDA:3,System.Void BudBudget.REST.Controllers.AuthController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
-DA:32,3
-DA:33,6
+FNDA:4,System.Void BudBudget.REST.Controllers.AuthController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
+DA:32,4
+DA:33,8
 FN:36,System.Void BudBudget.REST.Controllers.AuthController/<Login>d__2::MoveNext()
 FNDA:3,System.Void BudBudget.REST.Controllers.AuthController/<Login>d__2::MoveNext()
 DA:37,3
@@ -862,65 +862,65 @@ BRDA:46,603,1,1
 BRDA:56,725,0,0
 BRDA:56,725,1,1
 FN:63,System.Void BudBudget.REST.Controllers.AuthController/<Register>d__3::MoveNext()
-FNDA:3,System.Void BudBudget.REST.Controllers.AuthController/<Register>d__3::MoveNext()
-DA:64,3
-DA:65,3
+FNDA:2,System.Void BudBudget.REST.Controllers.AuthController/<Register>d__3::MoveNext()
+DA:64,2
+DA:65,2
 DA:66,0
 DA:67,0
-DA:70,3
-DA:71,0
-DA:72,0
-DA:75,3
-DA:76,3
-DA:77,3
-DA:78,3
-DA:79,3
-DA:80,3
-DA:81,3
-DA:83,3
-DA:84,3
-BRDA:65,82,0,3
-BRDA:65,105,0,3
-BRDA:65,82,1,0
-BRDA:65,105,1,0
-BRDA:65,133,0,0
-BRDA:65,133,1,3
-BRDA:70,430,0,0
-BRDA:70,430,1,3
-BRDA:80,595,0,0
-BRDA:80,595,1,3
-LF:48
-LH:42
-BRF:22
+DA:70,2
+DA:71,1
+DA:72,1
+DA:75,1
+DA:76,1
+DA:77,1
+DA:78,1
+DA:79,1
+DA:80,1
+DA:82,1
+DA:83,1
+DA:84,1
+DA:85,1
+DA:86,2
+BRDA:65,57,0,2
+BRDA:65,80,0,2
+BRDA:65,57,1,0
+BRDA:65,80,1,0
+BRDA:65,108,0,0
+BRDA:65,108,1,2
+BRDA:70,405,0,1
+BRDA:70,405,1,1
+LF:50
+LH:46
+BRF:20
 BRH:13
 FNF:4
 FNH:4
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Controllers\BaseController.cs
 FN:17,System.Int32 BudBudget.REST.Controllers.BaseController::get_UserId()
-FNDA:0,System.Int32 BudBudget.REST.Controllers.BaseController::get_UserId()
-DA:18,0
-BRDA:18,7,0,0
+FNDA:2,System.Int32 BudBudget.REST.Controllers.BaseController::get_UserId()
+DA:18,2
+BRDA:18,7,0,1
 BRDA:18,57,0,0
-BRDA:18,57,1,0
+BRDA:18,57,1,1
 BRDA:18,7,1,0
 FN:18,System.Void BudBudget.REST.Controllers.BaseController::set_UserId(System.Int32)
 FNDA:0,System.Void BudBudget.REST.Controllers.BaseController::set_UserId(System.Int32)
 DA:19,0
 FN:14,System.Void BudBudget.REST.Controllers.BaseController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
-FNDA:3,System.Void BudBudget.REST.Controllers.BaseController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
-DA:15,3
-DA:22,3
-DA:23,3
-DA:24,3
-DA:25,3
-DA:26,3
+FNDA:5,System.Void BudBudget.REST.Controllers.BaseController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
+DA:15,5
+DA:22,5
+DA:23,5
+DA:24,5
+DA:25,5
+DA:26,5
 LF:8
-LH:6
+LH:7
 BRF:4
-BRH:0
+BRH:2
 FNF:3
-FNH:1
+FNH:2
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Controllers\CategoriesController.cs
 FN:19,System.Void BudBudget.REST.Controllers.CategoriesController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
@@ -1015,21 +1015,21 @@ FNH:0
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Controllers\EntriesController.cs
 FN:21,System.Void BudBudget.REST.Controllers.EntriesController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
-FNDA:0,System.Void BudBudget.REST.Controllers.EntriesController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
-DA:22,0
-DA:23,0
+FNDA:1,System.Void BudBudget.REST.Controllers.EntriesController::.ctor(BudBudget.REST.Models.BudBudgetContext,AutoMapper.IMapper)
+DA:22,1
+DA:23,2
 FN:32,System.Void BudBudget.REST.Controllers.EntriesController/<GetEntries>d__1::MoveNext()
-FNDA:0,System.Void BudBudget.REST.Controllers.EntriesController/<GetEntries>d__1::MoveNext()
-DA:33,0
-DA:35,0
-DA:36,0
-DA:37,0
-DA:38,0
-DA:39,0
-DA:40,0
-DA:41,0
-DA:42,0
-DA:43,0
+FNDA:1,System.Void BudBudget.REST.Controllers.EntriesController/<GetEntries>d__1::MoveNext()
+DA:33,1
+DA:35,1
+DA:36,1
+DA:37,1
+DA:38,1
+DA:39,1
+DA:40,1
+DA:41,1
+DA:42,1
+DA:43,1
 FN:51,System.Void BudBudget.REST.Controllers.EntriesController/<GetEntry>d__2::MoveNext()
 FNDA:0,System.Void BudBudget.REST.Controllers.EntriesController/<GetEntry>d__2::MoveNext()
 DA:52,0
@@ -1115,11 +1115,11 @@ DA:159,0
 DA:160,0
 DA:161,0
 LF:70
-LH:0
+LH:12
 BRF:16
 BRH:0
 FNF:7
-FNH:0
+FNH:2
 end_of_record
 SF:d:\Progetti_Visual_Studio\budbudget\BudBudget.REST\Authentication\DbSessionExtensions.cs
 FN:8,Microsoft.AspNetCore.Authentication.AuthenticationBuilder BudBudget.REST.Authentication.DbSessionExtensions::AddDbSession(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action`1<BudBudget.REST.Authentication.DbSessionOption>)
