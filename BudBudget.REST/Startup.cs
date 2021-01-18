@@ -32,8 +32,6 @@ namespace BudBudget.REST
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddCors();
-
 			services.AddControllers()
 				.AddNewtonsoftJson( // To solve reference looping in the models
 					options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -86,7 +84,7 @@ namespace BudBudget.REST
 				app.UseHsts();
 			}
 			app.UseCors(builder =>
-				builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+				builder.AllowAnyHeader().SetIsOriginAllowed(origin => true).AllowAnyMethod().AllowCredentials());
 
 			app.UseAuthentication();
 			// app.UseHttpsRedirection();
