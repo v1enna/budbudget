@@ -5,7 +5,15 @@ import { LoginContext } from "./contexts/LoginContext";
 import Routes from "./Routes";
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const sid =
+		document.cookie.indexOf("sid=") >= 0
+			? document.cookie
+					.split("; ")
+					.map((x) => x.split("="))
+					.filter((v) => v[0] === "sid")[0][1]
+			: "";
+
+	const [isLoggedIn, setIsLoggedIn] = useState(sid ? true : false);
 
 	if (!isLoggedIn) {
 		return (
