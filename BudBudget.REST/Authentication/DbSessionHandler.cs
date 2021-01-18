@@ -25,15 +25,18 @@ namespace BudBudget.REST.Authentication
 		{
 			// Check if trying to authenticate
 			string[] authHeader = Context.Request.Headers["Authorization"].ToString().Split("Bearer ");
-			if (authHeader.Length < 2)
+			string sidCookie = Context.Request.Cookies["sid"];
+			if (authHeader.Length < 2 && sidCookie == "")
 			{
 				return AuthenticateResult.NoResult();
 			}
 
+			string sid = sidCookie != "" ? sidCookie : authHeader[1];
+
 			try
 			{
 				// Check if session exist
-				Guid token = new Guid(authHeader[1]);
+				Guid token = new Guid(sid);
 				var session = await dataContext.Sessions.SingleOrDefaultAsync(s => s.SID == token);
 
 				if (session != null)
