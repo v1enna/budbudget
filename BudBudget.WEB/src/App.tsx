@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import "./App.css";
 import LoginPage from "./containers/LoginPage";
+import { LoginContext } from "./contexts/LoginContext";
+import Routes from "./Routes";
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	if (isLoggedIn) {
-		return <>Loggato!!</>;
+	if (!isLoggedIn) {
+		return (
+			<LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+		);
 	} else {
-		return <LoginPage setIsLoggedIn={setIsLoggedIn} />;
+		return (
+			<LoginContext.Provider value={{ isLoggedIn }}>
+				<Routes />
+			</LoginContext.Provider>
+		);
 	}
 }
 

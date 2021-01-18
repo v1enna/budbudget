@@ -14,3 +14,10 @@
 .login_button {
 	width: 100%;
 }
+
+.message_error {
+	color: red;
+	font-size: large;
+	text-align: center;
+	margin-top: 10pt;
+}

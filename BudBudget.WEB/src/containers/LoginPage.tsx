@@ -1,7 +1,7 @@
 import { Button, Form, Input } from "antd";
 import "antd/dist/antd.css";
 import { Store } from "antd/lib/form/interface";
-import React from "react";
+import React, { useState } from "react";
 import { Authenticate } from "../services/LoginService";
 import "./LoginPage.css";
 
@@ -10,14 +10,24 @@ interface LoginFormData {
 	password: string;
 }
 
-export default function LoginPage() {
+interface LoginPageProps {
+	isLoggedIn: boolean;
+	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function LoginPage(props: LoginPageProps) {
+	const [messaggeError, setMessaggeError] = useState("");
+
 	async function tryLogin(values: Store) {
 		const formData = values as LoginFormData;
 
 		const sid = await Authenticate(formData.username, formData.password);
 
-		if (sid != "") window.alert(sid);
-		else window.alert("password errata");
+		if (sid != "") {
+			props.setIsLoggedIn(true);
+		} else {
+			setMessaggeError("Username o password errati!");
+		}
 	}
 
 	return (
@@ -37,6 +47,8 @@ export default function LoginPage() {
 					>
 						Log in!
 					</Button>
+
+					<div className="message_error">{messaggeError}</div>
 				</Form.Item>
 			</Form>
 		</div>
