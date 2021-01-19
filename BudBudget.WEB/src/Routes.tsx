@@ -8,7 +8,7 @@ export default function Routes() {
 			<Route path="/transactions" component={TransactionsContainer} />
 			{/* <Route path="/reports" component={ReportsContainer} /> */}
 
-			<Route path="/" component={TransactionsContainer} />
+			<Route exact path="/" component={TransactionsContainer} />
 
 			<Route>
 				<div>404 pagina non trovata</div>
