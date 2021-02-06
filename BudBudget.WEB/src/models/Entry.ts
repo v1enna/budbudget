@@ -2,12 +2,12 @@ import { Category } from "./Category";
 
 export interface Entry {
     "id": string,
-    "datetime": Date,
+    "datetime": Date|null,
     "name": string,
     "description": string,
     "value": number,
-    "category": Category,
-    "subCategory": Category,
-    "updatedAt": Date,
+    "category": Category|null,
+    "subCategory": Category|null,
+    "updatedAt": Date|null,
     "deleted": boolean
 }

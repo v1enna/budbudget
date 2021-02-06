@@ -1,6 +1,6 @@
-import { Button, Input, Layout, Select, Table } from "antd";
-import { format } from "date-fns";
+import { Button, Input, Layout, Select } from "antd";
 import React, { useEffect, useState } from "react";
+import TransactionsTable from "../components/TransactionsTable";
 import { Category } from "../models/Category";
 import { Entry } from "../models/Entry";
 import { getCategories, getEntries } from "../services/DataService";
@@ -8,7 +8,7 @@ import "./TransactionsContainer.css";
 
 const { Header, Content } = Layout;
 
-interface TableEntry extends Entry {
+export interface TableEntry extends Entry {
 	key: string;
 }
 
@@ -33,32 +33,6 @@ export default function TransactionsContainer() {
 		}
 		fetchData();
 	}, []);
-
-	const columns = [
-		{
-			title: "Data",
-			dataIndex: "datetime",
-			key: "datetime",
-			render: (text: string, r: Entry) =>
-				format(r.datetime, "yyyy-MM-dd"),
-		},
-		{
-			title: "Descrizione",
-			dataIndex: "description",
-			key: "description",
-		},
-		{
-			title: "Valore",
-			dataIndex: "value",
-			key: "value",
-		},
-		{
-			title: "Categoria",
-			key: "category",
-			render: (text: string, record: Entry) =>
-				`${record.category.name} - ${record.subCategory.name}`,
-		},
-	];
 
 	const filteredEntries = entries.filter((e) =>
 		e.description.includes(nameFilter)
@@ -88,10 +62,8 @@ export default function TransactionsContainer() {
 				/>
 			</Header>
 			<Content className="content_transactions">
-				<Table
-					columns={columns}
+				<TransactionsTable
 					dataSource={filteredEntries}
-					pagination={false}
 					rowSelection={{
 						type: "checkbox",
 						onChange: (keys, rows) => {
