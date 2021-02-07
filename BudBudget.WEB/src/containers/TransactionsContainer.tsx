@@ -1,6 +1,7 @@
 import { Button, Input, Layout, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import TransactionsTable from "../components/TransactionsTable";
+import { useLoginContext } from "../contexts/LoginContext";
 import { Category } from "../models/Category";
 import { Entry } from "../models/Entry";
 import { getCategories, getEntries } from "../services/DataService";
@@ -38,10 +39,21 @@ export default function TransactionsContainer() {
 		e.description.includes(nameFilter)
 	);
 
+	const contextType = useLoginContext();
+
+	function tryLogout() {
+		if(contextType.isLoggedIn && contextType.setIsLoggedIn) {
+			contextType.setIsLoggedIn(false);
+			alert(contextType.isLoggedIn);
+		}
+	}
+
 	return (
 		<Layout>
 			<Header className="header_transactions">
-				<Button>test</Button>
+				<Button type="primary">
+					Aggiungi transazione
+				</Button>
 				<Select
 					showSearch
 					mode="multiple"
@@ -60,6 +72,9 @@ export default function TransactionsContainer() {
 					onChange={(e) => setNameFilter(e.target.value)}
 					className="search_name"
 				/>
+				<Button type="primary" danger onClick={tryLogout}>
+					Esci
+				</Button>
 			</Header>
 			<Content className="content_transactions">
 				<TransactionsTable
