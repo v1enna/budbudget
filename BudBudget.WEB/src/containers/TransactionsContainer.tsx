@@ -42,10 +42,8 @@ export default function TransactionsContainer() {
 	const contextType = useLoginContext();
 
 	function tryLogout() {
-		if(contextType.isLoggedIn && contextType.setIsLoggedIn) {
+		if(contextType.isLoggedIn && contextType.setIsLoggedIn)
 			contextType.setIsLoggedIn(false);
-			alert(contextType.isLoggedIn);
-		}
 	}
 
 	return (
