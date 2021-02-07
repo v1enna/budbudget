@@ -16,4 +16,5 @@ RUN dotnet publish "BudBudget.REST.csproj" -c Debug -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+COPY ./.docker/devcert.pfx /https/devcert.pfx
 ENTRYPOINT ["dotnet", "BudBudget.REST.dll"]

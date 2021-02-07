@@ -5,6 +5,7 @@ using AutoMapper;
 using BudBudget.REST.Dtos;
 using BudBudget.REST.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,7 +58,12 @@ namespace BudBudget.REST.Controllers
 			await context.SaveChangesAsync();
 
 			// add sessionId to cookies
-			Response.Cookies.Append("sid", session.SID.ToString());
+			Response.Cookies.Append("sid", session.SID.ToString()
+				, new CookieOptions
+				{
+					SameSite = SameSiteMode.None,
+					Secure = true
+				});
 			return mapper.Map<SessionDto>(session);
 		}
 

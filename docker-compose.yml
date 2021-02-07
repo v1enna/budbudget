@@ -14,7 +14,9 @@ services:
       PGSQL_DATABASE: postgres
       PGSQL_USERNAME: postgres
       PGSQL_PASSWORD: postgres
-      APPLICATIONURLS: http://0.0.0.0:5000 # Set the port here for the server. Don't change the ip
+      ASPNETCORE_URLS: https://+:5001;http://+:5000
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/devcert.pfx
+      ASPNETCORE_Kestrel__Certificates__Default__Password: 12345678
       ASPNETCORE_ENVIRONMENT: Production
     networks: 
       - db-network

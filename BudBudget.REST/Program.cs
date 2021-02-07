@@ -19,7 +19,6 @@ namespace BudBudget.REST
 
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
-				.UseUrls(Environment.GetEnvironmentVariable("APPLICATIONURLS") ?? "http://localhost:5000")
 				.UseStartup<Startup>();
 	}
 }

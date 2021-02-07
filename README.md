@@ -30,5 +30,7 @@ You can edit appsettings.json or use these **environment variables**:
 * **PGSQL_DATABASE**: postgres database name (default postgres)
 * **PGSQL_USERNAME**: postgres username (default postgres)
 * **PGSQL_PASSWORD**: postgres password (default password)
-* **APPLICATIONURLS**: URLs and ports used by Asp.NET (default http://0.0.0.0:5000)
+* **ASPNETCORE_URLS**: URLs and ports used by Asp.NET
+* **ASPNETCORE_Kestrel__Certificates__Default__Path**: certificate path for HTTPS
+* **ASPNETCORE_Kestrel__Certificates__Default__Password**: certificate path for HTTPS
 * **ASPNETCORE_ENVIRONMENT**: Development or Production. Develpoment add debug messages in console and Swagger on the main page

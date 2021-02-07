@@ -20,7 +20,9 @@
 					}
 				],
 				"env": {
-					"APPLICATIONURLS": "http://0.0.0.0:5000",
+					"ASPNETCORE_URLS": "https://+:5001;http://+:5000",
+					"ASPNETCORE_Kestrel__Certificates__Default__Path": "/https/devcert.pfx",
+					"ASPNETCORE_Kestrel__Certificates__Default__Password": "12345678",
 					"ASPNETCORE_ENVIRONMENT": "Development"
 				}
 			}

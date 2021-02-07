@@ -5,21 +5,24 @@ import { API_LOGIN_URL } from "../config";
  * If successfull return session id (sid).
  * If not return empty string.
  */
-export async function Authenticate(username: string, password: string ) : Promise<string> {
-	const reqBody = {username: username, password: password}
+export async function Authenticate(
+	username: string,
+	password: string
+): Promise<string> {
+	const reqBody = { username: username, password: password };
 
 	const response = await fetch(API_LOGIN_URL, {
 		method: "POST",
-		
-headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-		body: JSON.stringify(reqBody)
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+		body: JSON.stringify(reqBody),
 	});
 
 	if (!response.ok) return "";
-	
+
 	// { sid: string }
 	const session = await response.json();
 
