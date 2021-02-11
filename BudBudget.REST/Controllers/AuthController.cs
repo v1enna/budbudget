@@ -58,7 +58,7 @@ namespace BudBudget.REST.Controllers
 			await context.SaveChangesAsync();
 
 			// add sessionId to cookies
-			Response.Cookies.Append("sid", session.SID.ToString()
+			Response?.Cookies.Append("sid", session.SID.ToString()
 				, new CookieOptions
 				{
 					SameSite = SameSiteMode.None,
