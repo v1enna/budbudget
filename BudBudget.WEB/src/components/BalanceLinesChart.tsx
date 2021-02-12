@@ -1,16 +1,8 @@
 import React, { createContext } from 'react'
 import { Line } from "@ant-design/charts";
-import { DashboardContext } from "../contexts/DashboardContext";
+import { MonthlyData } from "../containers/DashboardContainer"
 
 export default function BalanceLinesChart() {
-	const contextType = DashboardContext;
-
-	interface MonthlyData {
-		month: string, // eg. december ...
-		monthValue: number, // always a positive value
-		type: string // either gains or losses
-	}
-	
 	function generateDataSource() : MonthlyData[] {
 		// Somehow fetch entries by category here (context?)
 		var data : MonthlyData[] = [];
@@ -53,7 +45,7 @@ export default function BalanceLinesChart() {
 		xField: "month",
 		yField: "monthValue",
 		seriesField: "type",
-		color: ["green", "red"]
+		color: ["red", "green"]
 	}
 
 	return (
