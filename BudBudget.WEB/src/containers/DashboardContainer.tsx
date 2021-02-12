@@ -8,7 +8,10 @@ import {
 } from 'antd';
 import "./DashboardContainer.css";
 import CategoryBarChart from "../components/CategoryBarChart";
-import { Bar } from "@ant-design/charts";
+import { 
+	Bar,
+	Line
+ } from "@ant-design/charts";
 
 const { Header, Content } = Layout;
 
@@ -17,8 +20,22 @@ interface CategoryValues {
 	categoryValue: number
 }
 
+interface MonthlyData {
+	month: string, // eg. december ...
+	monthValue: number, // always a positive value
+	type: string // either gains or losses
+}
+
 export default function DashboardContainer() {
-	function createDataSource() : CategoryValues[] {
+
+	/*
+
+		Top graph: "Category Chart"
+		Bar chart filtered by value per category.
+
+	*/
+
+	function createChartDataSource() : CategoryValues[] {
 		// somehow fetch entries by category here
 		var data : CategoryValues[] = [];
 
@@ -29,19 +46,22 @@ export default function DashboardContainer() {
 					categoryName: require('randomstring').generate({
 						length: 10,
 						charset: 'alphabetic',
-						readable: true
+						readable: (Math.random() == 1) ? true : false
 					}),
 					categoryValue: Math.floor(Math.random() * 149)
 				});
 			}
 		}
 
+		// sort data by value
+		data.sort((x, y) => x.categoryValue - y.categoryValue);
+
 		return data;
 	};
 
-	const dataSource = createDataSource();
+	const chartDataSource = createChartDataSource();
 
-	const columns = [
+	const categoryColumns = [
 		{
 			title: "Categoria",
 			dataIndex: "categoryName",
@@ -55,10 +75,61 @@ export default function DashboardContainer() {
 	];
 
 	const chartConfig = {
-		data: dataSource,
+		data: chartDataSource,
 		xField: "categoryValue",
 		yField: "categoryName",
 		seriesField: 'categoryName'
+	}
+	
+	/* 
+		Bottom-right graph : "Overview Graph"
+		Line monthly-based chart on the user's balance.
+	*/
+
+	
+	function createOverviewDataSource() : MonthlyData[] {
+		// somehow fetch entries by category here
+		var data : MonthlyData[] = [];
+
+		const monthNames = [
+			"Gennaio",
+			"Febbraio",
+			"Marzo",
+			"Aprile",
+			"Maggio",
+			"Giugno",
+			"Luglio",
+			"Agosto",
+			"Settembre",
+			"Ottobre",
+			"Novembre",
+			"Dicembre"
+		]
+
+		// if no entries found, fill with example data
+		if(data.length == 0) {
+			for(let j = 0; j < 2; j++) {
+				for(let i = 0; i < 12; i++) {
+					data.push({
+						month: monthNames[i],
+						monthValue: Math.floor(Math.random() * 1000),
+						type: j ? "Entrata" : "Uscita"
+					});
+				}
+			}
+		}	
+		
+		return data;
+	}
+
+	const overviewData = createOverviewDataSource();
+
+	const overviewConfig = {
+		data: overviewData,
+		xField: "month",
+		yField: "monthValue",
+		seriesField: "type",
+		color: ["green", "red"]
 	}
 
 	return (
@@ -80,14 +151,14 @@ export default function DashboardContainer() {
 					<Row gutter={16}>
 						<Col span={12}>
 							<Card title={"Spese per categoria"}>
-								<Table columns={columns} dataSource={dataSource}></Table>
+								<Table columns={categoryColumns} dataSource={chartDataSource}></Table>
 							</Card>
 						</Col>
 						<Col span={12}>
-							<Card title={"Saldo complessivo"}>
+							<Card title={"Andamento mensile"}>
 								<div className="balance">
 									<div className="money">
-										<strong>Bilancio: <span>2917€</span></strong>
+										<strong>Saldo attuale: <span>2917€</span></strong>
 									</div>
 									<div className="money_in">
 										<strong>Entrate del mese: <span>+1203€</span></strong>
@@ -96,6 +167,7 @@ export default function DashboardContainer() {
 										<strong>Uscite del mese: <span>-712€</span></strong>
 									</div>
 								</div>
+								<Line {...overviewConfig} />
 							</Card>
 						</Col>
 					</Row>
