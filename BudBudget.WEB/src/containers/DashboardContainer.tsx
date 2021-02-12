@@ -23,15 +23,35 @@ interface CategoryValues {
 	categoryValue: number
 }
 
+/*
+
+	To-fetch data
+
+	Servono due dataset per la dashboard:
+		- Per ogni mese per cui sono disponibili entry, fornire la somma dei valori delle entry raggruppate per categoria
+			-> Rappresentabili con l'interfaccia CategoryValues
+			-> Creare un array di CategoryValues e passarlo come {dataSource} a CategoryBarChart
+			-> N.B - I valori vengono ordinati automaticamente in CategoryBarChart
+		- Per ogni mese di cui sono disponibili entry, filtrare entrate e uscite (entrata => entryValue > 0)
+			-> Rappresentabili con l'interfaccia MonthlyData
+			-> eg. 
+				{
+					month: Gennaio
+					monthValue: 500 (unsigned)
+					type: true -> gains; false -> losses
+				}
+
+*/
+
 export default function DashboardContainer() {
 
 	// Generate data filtered by category for both the table and the main graph
-	
+
 	function generateDataSource() : CategoryValues[] {
-		// Somehow fetch entries by category here
+		// Riempire {data} con un array di CategoryValues
 		var data : CategoryValues[] = [];
 
-		// If no entries found, fill with example data
+		// Se non è possibile associare entry, genera casualmente dei dati (utile per testare il layout)
 		if(data.length === 0) {
 			for(let i = 0; i < 10; i++) {
 				data.push({
@@ -45,7 +65,7 @@ export default function DashboardContainer() {
 			}
 		}
 
-		// sort data by value
+		// Ordina i dati in funzione del valore
 		data.sort((x, y) => x.categoryValue - y.categoryValue);
 
 		return data;
