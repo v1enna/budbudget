@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
 	Card, 
 	Col, 
@@ -8,13 +8,17 @@ import {
 } from 'antd';
 import "./DashboardContainer.css";
 import CategoryBarChart from "../components/CategoryBarChart";
-import BalanceLinesChart from "../components/BalanceLinesChart"
+import BalanceLinesChart from "../components/BalanceLinesChart";
+import { DashboardContext } from "../contexts/DashboardContext";
 
 const { Header, Content } = Layout;
 
 export default function DashboardContainer() {
+	
+	const [dashboardContext, setDashboardContext] = useState({});
+
 	return (
-		<div>
+		<DashboardContext.Provider value={{ dashboardContext, setDashboardContext }}>
 			<Layout>
 				<Header style={{ background: "#ffffff" }}>
 					<div>
@@ -33,7 +37,7 @@ export default function DashboardContainer() {
 						<Col span={12}>
 							<Card title={"Spese per categoria"}>
 								<Table />
-							</Card>
+							</Card>							
 						</Col>
 						<Col span={12}>
 							<Card title={"Andamento mensile"}>
@@ -54,6 +58,6 @@ export default function DashboardContainer() {
 					</Row>
 				</Content>
 			</Layout>
-		</div>
+		</DashboardContext.Provider>
 	)
 }

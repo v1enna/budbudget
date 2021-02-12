@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import { Line } from "@ant-design/charts";
+import { DashboardContext } from "../contexts/DashboardContext";
 
 export default function BalanceLinesChart() {
+	const contextType = DashboardContext;
+
 	interface MonthlyData {
 		month: string, // eg. december ...
 		monthValue: number, // always a positive value
@@ -9,7 +12,7 @@ export default function BalanceLinesChart() {
 	}
 	
 	function generateDataSource() : MonthlyData[] {
-		// Somehow fetch entries by category here
+		// Somehow fetch entries by category here (context?)
 		var data : MonthlyData[] = [];
 
 		const monthNames = [
@@ -27,7 +30,7 @@ export default function BalanceLinesChart() {
 			"Dicembre"
 		]
 
-		// If no entries found, fill with example data
+		// If no entries are found, fill with example data
 		if(data.length == 0) {
 			for(let j = 0; j < 2; j++) {
 				for(let i = 0; i < 12; i++) {

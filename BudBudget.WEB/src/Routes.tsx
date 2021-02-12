@@ -7,7 +7,6 @@ export default function Routes() {
 	return (
 		<Switch>
 			<Route path="/transactions" component={TransactionsContainer} />
-			{/* <Route path="/reports" component={ReportsContainer} /> */}
 
 			<Route exact path="/" component={DashboardContainer} />
 

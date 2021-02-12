@@ -1,12 +1,6 @@
 import { createContext, useContext } from "react";
 
-export interface LoginData {
-	isLoggedIn: boolean;
-}
-
 export interface LoginDataContext {
-	// loginData?: LoginData;
-	// setLoginData?: React.Dispatch<React.SetStateAction<LoginData>>;
 	isLoggedIn?: boolean;
 	setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>;
 }

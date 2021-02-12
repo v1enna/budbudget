@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bar } from "@ant-design/charts";
+import { DashboardContext } from "../contexts/DashboardContext";
 
 export default function CategoryBarChart() {
+	const contextType = DashboardContext;
+
 	interface CategoryValues {
 		categoryName: string,
 		categoryValue: number
@@ -12,13 +15,13 @@ export default function CategoryBarChart() {
 		var data : CategoryValues[] = [];
 
 		// If no entries found, fill with example data
-		if(data.length == 0) {
+		if(data.length === 0) {
 			for(let i = 0; i < 10; i++) {
 				data.push({
 					categoryName: require('randomstring').generate({
 						length: 10,
 						charset: 'alphabetic',
-						readable: (Math.random() == 1) ? true : false
+						readable: (Math.random() === 1) ? true : false
 					}),
 					categoryValue: Math.floor(Math.random() * 149)
 				});
