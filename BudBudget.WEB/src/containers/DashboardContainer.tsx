@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
-import { 
-	Card, 
-	Col, 
-	Row,
-	Layout,
-	Table
-} from 'antd';
-import "./DashboardContainer.css";
-import CategoryBarChart from "../components/CategoryBarChart";
+import { Card, Col, Layout, Row, Table } from "antd";
+import React from "react";
 import BalanceLinesChart from "../components/BalanceLinesChart";
+import CategoryBarChart from "../components/CategoryBarChart";
+import "./DashboardContainer.css";
 
 const { Header, Content } = Layout;
 
 export interface MonthlyData {
-	month: string,
-	monthValue: number,
-	type: string 
+	month: string;
+	monthValue: number;
+	type: string;
 }
 
 interface CategoryValues {
-	categoryName: string,
-	categoryValue: number
+	categoryName: string;
+	categoryValue: number;
 }
 
 /*
@@ -44,23 +38,22 @@ interface CategoryValues {
 */
 
 export default function DashboardContainer() {
-
 	// Generate data filtered by category for both the table and the main graph
 
-	function generateDataSource() : CategoryValues[] {
+	function generateDataSource(): CategoryValues[] {
 		// Riempire {data} con un array di CategoryValues
-		var data : CategoryValues[] = [];
+		var data: CategoryValues[] = [];
 
 		// Se non è possibile associare entry, genera casualmente dei dati (utile per testare il layout)
-		if(data.length === 0) {
-			for(let i = 0; i < 10; i++) {
+		if (data.length === 0) {
+			for (let i = 0; i < 10; i++) {
 				data.push({
-					categoryName: require('randomstring').generate({
+					categoryName: require("randomstring").generate({
 						length: 10,
-						charset: 'alphabetic',
-						readable: (Math.random() === 1) ? true : false
+						charset: "alphabetic",
+						readable: Math.random() === 1 ? true : false,
 					}),
-					categoryValue: Math.floor(Math.random() * 149)
+					categoryValue: Math.floor(Math.random() * 149),
 				});
 			}
 		}
@@ -69,7 +62,7 @@ export default function DashboardContainer() {
 		data.sort((x, y) => x.categoryValue - y.categoryValue);
 
 		return data;
-	};
+	}
 
 	const dataSource = generateDataSource();
 
@@ -84,44 +77,47 @@ export default function DashboardContainer() {
 				<Row className="content-row">
 					<Col span={24}>
 						<Card title={"Dove ho speso di più?"}>
-							<CategoryBarChart 
-								dataSource={dataSource} 
-							/>
+							<CategoryBarChart dataSource={dataSource} />
 						</Card>
 					</Col>
 				</Row>
 				<Row gutter={16}>
 					<Col span={12}>
 						<Card title={"Spese per categoria"}>
-							<Table 
+							<Table
 								columns={[
 									{
-										title: 'Categoria',
-										dataIndex: 'categoryName',
-										key: 'categoryName'
+										title: "Categoria",
+										dataIndex: "categoryName",
+										key: "categoryName",
 									},
 									{
-										title: 'Valore',
-										dataIndex: 'categoryValue',
-										key: 'categoryValue'
-									}	
-								]} 
-									
+										title: "Valore",
+										dataIndex: "categoryValue",
+										key: "categoryValue",
+									},
+								]}
 								dataSource={dataSource}
 							/>
-						</Card>							
+						</Card>
 					</Col>
 					<Col span={12}>
 						<Card title={"Andamento mensile"}>
 							<div className="balance">
 								<div className="money">
-									<strong>Saldo attuale: <span>2917€</span></strong>
+									<strong>
+										Saldo attuale: <span>2917€</span>
+									</strong>
 								</div>
 								<div className="money_in">
-									<strong>Entrate del mese: <span>+1203€</span></strong>
+									<strong>
+										Entrate del mese: <span>+1203€</span>
+									</strong>
 								</div>
 								<div className="money_out">
-									<strong>Uscite del mese: <span>-712€</span></strong>
+									<strong>
+										Uscite del mese: <span>-712€</span>
+									</strong>
 								</div>
 							</div>
 							<BalanceLinesChart />
@@ -130,5 +126,5 @@ export default function DashboardContainer() {
 				</Row>
 			</Content>
 		</Layout>
-	)
+	);
 }

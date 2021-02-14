@@ -1,11 +1,11 @@
-import React, { createContext } from 'react'
 import { Line } from "@ant-design/charts";
-import { MonthlyData } from "../containers/DashboardContainer"
+import React from "react";
+import { MonthlyData } from "../containers/DashboardContainer";
 
 export default function BalanceLinesChart() {
-	function generateDataSource() : MonthlyData[] {
+	function generateDataSource(): MonthlyData[] {
 		// Somehow fetch entries by category here (context?)
-		var data : MonthlyData[] = [];
+		var data: MonthlyData[] = [];
 
 		const monthNames = [
 			"Gennaio",
@@ -19,22 +19,22 @@ export default function BalanceLinesChart() {
 			"Settembre",
 			"Ottobre",
 			"Novembre",
-			"Dicembre"
-		]
+			"Dicembre",
+		];
 
 		// If no entries are found, fill with example data
-		if(data.length == 0) {
-			for(let j = 0; j < 2; j++) {
-				for(let i = 0; i < 12; i++) {
+		if (data.length === 0) {
+			for (let j = 0; j < 2; j++) {
+				for (let i = 0; i < 12; i++) {
 					data.push({
 						month: monthNames[i],
 						monthValue: Math.floor(Math.random() * 1000),
-						type: j ? "Entrata" : "Uscita"
+						type: j ? "Entrata" : "Uscita",
 					});
 				}
 			}
-		}	
-		
+		}
+
 		return data;
 	}
 
@@ -45,10 +45,8 @@ export default function BalanceLinesChart() {
 		xField: "month",
 		yField: "monthValue",
 		seriesField: "type",
-		color: ["red", "green"]
-	}
+		color: ["red", "green"],
+	};
 
-	return (
-		<Line {...config} />
-	)
+	return <Line {...config} />;
 }
