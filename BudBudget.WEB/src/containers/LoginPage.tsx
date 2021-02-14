@@ -23,7 +23,7 @@ export default function LoginPage(props: LoginPageProps) {
 
 		const sid = await Authenticate(formData.username, formData.password);
 
-		if (sid != "") {
+		if (sid !== "") {
 			props.setIsLoggedIn(true);
 		} else {
 			setMessaggeError("Username o password errati!");

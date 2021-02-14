@@ -1,4 +1,5 @@
 import { API_LOGIN_URL } from "../config";
+import { fetchApi } from "./_helpers";
 
 /**
  * Try to authenticate the user.
@@ -11,20 +12,14 @@ export async function Authenticate(
 ): Promise<string> {
 	const reqBody = { username: username, password: password };
 
-	const response = await fetch(API_LOGIN_URL, {
-		method: "POST",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/json",
-		},
-		credentials: "include",
-		body: JSON.stringify(reqBody),
-	});
+	const response = await fetchApi(API_LOGIN_URL, "POST", reqBody);
 
 	if (!response.ok) return "";
 
 	// { sid: string }
 	const session = await response.json();
+
+	localStorage.setItem("sid", session.sid);
 
 	return session.sid;
 }

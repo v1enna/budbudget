@@ -77,6 +77,11 @@ namespace BudBudget.REST
 					c.SwaggerEndpoint("/swagger/v1/swagger.json", "BudBudget API");
 					c.RoutePrefix = string.Empty;
 				});
+
+				using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+				{
+					scope.ServiceProvider.GetService<BudBudgetContext>().Database.Migrate();
+				}
 			}
 			else
 			{
@@ -97,12 +102,6 @@ namespace BudBudget.REST
 			{
 				endpoints.MapControllers();
 			});
-
-			using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-			{
-				scope.ServiceProvider.GetService<BudBudgetContext>().Database.Migrate();
-			}
-
 		}
 	}
 }
