@@ -18,6 +18,7 @@ services:
       ASPNETCORE_Kestrel__Certificates__Default__Path: /https/devcert.pfx
       ASPNETCORE_Kestrel__Certificates__Default__Password: 12345678
       ASPNETCORE_ENVIRONMENT: Production
+      USE_COOKIE_AUTH: "false"
     networks: 
       - db-network
 

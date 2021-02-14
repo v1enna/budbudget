@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BudBudget.REST.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -16,16 +17,26 @@ namespace BudBudget.REST.Authentication
 	internal class DbSessionHandler : AuthenticationHandler<DbSessionOption>
 	{
 		private BudBudgetContext dataContext;
-		public DbSessionHandler(IOptionsMonitor<DbSessionOption> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, BudBudgetContext dataContext) : base(options, logger, encoder, clock)
+		private IConfiguration configuration;
+
+		public DbSessionHandler(IOptionsMonitor<DbSessionOption> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, BudBudgetContext dataContext, IConfiguration configuration) : base(options, logger, encoder, clock)
 		{
 			// store custom services here...
 			this.dataContext = dataContext;
+			this.configuration = configuration;
 		}
 		protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
 		{
 			// Check if trying to authenticate
 			string[] authHeader = Context.Request.Headers["Authorization"].ToString().Split("Bearer ");
-			string sidCookie = Context.Request.Cookies["sid"];
+			string sidCookie = "";
+
+			if (configuration.GetValue<bool>("UseCookieAuth")
+				|| Environment.GetEnvironmentVariable("USE_COOKIE_AUTH") == "true")
+			{
+				sidCookie = Context.Request.Cookies["sid"];
+			}
+
 			if (authHeader.Length < 2 && sidCookie == "")
 			{
 				return AuthenticateResult.NoResult();
