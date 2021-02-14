@@ -1,31 +1,28 @@
-import { parseISO } from 'date-fns';
-import { API_CATEGORIES_URL, API_FETCHALL_URL } from '../config';
-import { Entry } from '../models/Entry';
+import { parseISO } from "date-fns";
+import { API_CATEGORIES_URL, API_FETCHALL_URL } from "../config";
+import { Entry } from "../models/Entry";
+import { fetchApi } from "./_helpers";
 
-export async function getEntries() : Promise<Array<Entry>> {
+export async function getEntries(): Promise<Array<Entry>> {
 	try {
-		const response = await fetch(API_FETCHALL_URL, {credentials: "include"});	
+		const response = await fetchApi(API_FETCHALL_URL);
 		const data = await response?.json();
-		
-		return data.map((d: any) => ({...d, datetime: parseISO(d.datetime)}))
-	}
-	catch(e) {
+
+		return data.map((d: any) => ({ ...d, datetime: parseISO(d.datetime) }));
+	} catch (e) {
 		console.log(e);
 		return [];
 	}
-
 }
 
 export async function getCategories() {
 	try {
-		const response = await fetch(API_CATEGORIES_URL, {credentials: "include"});	
+		const response = await fetchApi(API_CATEGORIES_URL);
 		const data = await response?.json();
-		
+
 		return data;
-	}
-	catch(e) {
+	} catch (e) {
 		console.log(e);
 		return [];
 	}
-
 }
