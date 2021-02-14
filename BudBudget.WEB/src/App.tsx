@@ -1,16 +1,15 @@
+import {
+	HomeOutlined,
+	ProjectOutlined,
+	SolutionOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import ReactDOM from 'react-dom';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./containers/LoginPage";
 import { LoginContext } from "./contexts/LoginContext";
 import Routes from "./Routes";
-import {
-	HomeOutlined,
-	SolutionOutlined,
-	ProjectOutlined
-} from '@ant-design/icons';
 
 const { Content, Sider } = Layout;
 
@@ -34,22 +33,26 @@ function App() {
 			<LoginContext.Provider value={{ isLoggedIn }}>
 				<Layout hasSider>
 					<Sider width={200}>
-						<Menu mode="vertical" className="sider_menu" defaultSelectedKeys={['1']}>
+						<Menu
+							mode="vertical"
+							className="sider_menu"
+							defaultSelectedKeys={["1"]}
+						>
 							<Menu.Item key="1">
 								<Link to="/">
-									<HomeOutlined /> 
+									<HomeOutlined />
 									Dashboard
 								</Link>
 							</Menu.Item>
 							<Menu.Item key="2">
 								<Link to="/transactions">
-									<SolutionOutlined /> 
+									<SolutionOutlined />
 									Transazioni
 								</Link>
 							</Menu.Item>
 							<Menu.Item key="3">
 								<Link to="/reports">
-									<ProjectOutlined /> 
+									<ProjectOutlined />
 									Reports
 								</Link>
 							</Menu.Item>
