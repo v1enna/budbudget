@@ -30,7 +30,12 @@ function App() {
 		);
 	} else {
 		return (
-			<LoginContext.Provider value={{ isLoggedIn }}>
+			<LoginContext.Provider value={
+				{ 
+					isLoggedIn: isLoggedIn,
+					setIsLoggedIn: setIsLoggedIn
+				}
+			}>
 				<Layout hasSider>
 					<Sider width={200}>
 						<Menu
