@@ -1,5 +1,9 @@
+import {
+	HomeOutlined,
+	ProjectOutlined,
+	SolutionOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-// import "antd/dist/antd.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
@@ -29,15 +33,28 @@ function App() {
 			<LoginContext.Provider value={{ isLoggedIn }}>
 				<Layout hasSider>
 					<Sider width={200}>
-						<Menu mode="vertical" className="sider_menu">
+						<Menu
+							mode="vertical"
+							className="sider_menu"
+							defaultSelectedKeys={["1"]}
+						>
 							<Menu.Item key="1">
-								<Link to="/">Dashboard</Link>
+								<Link to="/">
+									<HomeOutlined />
+									Dashboard
+								</Link>
 							</Menu.Item>
 							<Menu.Item key="2">
-								<Link to="/transactions">Transazioni</Link>
+								<Link to="/transactions">
+									<SolutionOutlined />
+									Transazioni
+								</Link>
 							</Menu.Item>
 							<Menu.Item key="3">
-								<Link to="/reports">Reports</Link>
+								<Link to="/reports">
+									<ProjectOutlined />
+									Reports
+								</Link>
 							</Menu.Item>
 						</Menu>
 					</Sider>
