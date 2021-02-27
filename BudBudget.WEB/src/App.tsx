@@ -2,6 +2,9 @@ import {
 	HomeOutlined,
 	ProjectOutlined,
 	SolutionOutlined,
+	UserOutlined,
+	SettingOutlined,
+	ApiOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
@@ -12,6 +15,8 @@ import { LoginContext } from "./contexts/LoginContext";
 import Routes from "./Routes";
 
 const { Content, Sider } = Layout;
+
+const { SubMenu } = Menu;
 
 function App() {
 	const sid =
@@ -30,12 +35,12 @@ function App() {
 		);
 	} else {
 		return (
-			<LoginContext.Provider value={
-				{ 
+			<LoginContext.Provider
+				value={{
 					isLoggedIn: isLoggedIn,
-					setIsLoggedIn: setIsLoggedIn
-				}
-			}>
+					setIsLoggedIn: setIsLoggedIn,
+				}}
+			>
 				<Layout hasSider>
 					<Sider width={200}>
 						<Menu
@@ -61,6 +66,28 @@ function App() {
 									Reports
 								</Link>
 							</Menu.Item>
+							<SubMenu
+								key="sub1"
+								title="User"
+								icon={<UserOutlined />}
+							>
+								<Menu.ItemGroup>
+									<Menu.Item
+										key="5"
+										icon={<SettingOutlined />}
+									>
+										<Link to="/settings">Settings</Link>
+									</Menu.Item>
+									<Menu.Item
+										key="6"
+										icon={<ApiOutlined />}
+										danger
+										onClick={() => setIsLoggedIn(false)}
+									>
+										Logout
+									</Menu.Item>
+								</Menu.ItemGroup>
+							</SubMenu>
 						</Menu>
 					</Sider>
 					<Layout>
