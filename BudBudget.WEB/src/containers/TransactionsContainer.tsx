@@ -4,8 +4,9 @@ import TransactionsTable from "../components/TransactionsTable";
 import EntrySummary from "../components/EntrySummary";
 import { Category } from "../models/Category";
 import { Entry } from "../models/Entry";
-import { getCategories, getEntries, updateEntry } from "../services/DataService";
+import { getCategories, getEntries } from "../services/DataService";
 import "./TransactionsContainer.css";
+import { EditOutlined } from "@ant-design/icons";
 
 const { Header, Content } = Layout;
 
@@ -42,12 +43,12 @@ export default function TransactionsContainer() {
 		return { 
 			...entry, 
 			edit: 
-				<Button
-					type="primary"
+				<EditOutlined
+					style={{ fontSize: 25 }}
 					onClick={() => setEntryEditing(entry)}
 				>
 					Edit
-				</Button>
+				</EditOutlined>
 		}
 	});
 

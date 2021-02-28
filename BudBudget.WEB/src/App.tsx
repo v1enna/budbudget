@@ -66,28 +66,20 @@ function App() {
 									Reports
 								</Link>
 							</Menu.Item>
-							<SubMenu
-								key="sub1"
-								title="User"
-								icon={<UserOutlined />}
+							<Menu.Item
+								key="5"
+								icon={<SettingOutlined />}
 							>
-								<Menu.ItemGroup>
-									<Menu.Item
-										key="5"
-										icon={<SettingOutlined />}
-									>
-										<Link to="/settings">Settings</Link>
-									</Menu.Item>
-									<Menu.Item
-										key="6"
-										icon={<ApiOutlined />}
-										danger
-										onClick={() => setIsLoggedIn(false)}
-									>
-										Logout
-									</Menu.Item>
-								</Menu.ItemGroup>
-							</SubMenu>
+								<Link to="/settings">Settings</Link>
+							</Menu.Item>
+							<Menu.Item
+								key="6"
+								icon={<ApiOutlined />}
+								danger
+								onClick={() => setIsLoggedIn(false)}
+							>
+								Logout
+							</Menu.Item>
 						</Menu>
 					</Sider>
 					<Layout>
