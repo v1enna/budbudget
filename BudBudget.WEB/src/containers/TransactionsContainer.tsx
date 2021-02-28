@@ -23,10 +23,7 @@ const { Option } = Select;
 
 export default function TransactionsContainer() {
 	const [entries, setEntries] = useState<TableEntry[]>([]);
-	const [originalEntries, setOriginalEntries] = useState<TableEntry[]>([]);
-	const [entryEditing, setEntryEditing] = useState<TableEntry>();
 	const [categories, setCategories] = useState<Category[]>([]);
-	const [editingEntry, setEditingEntry] = useState<boolean>(false);
 	const [selectedEntries, setSelectedEntries] = useState<TableEntry[]>([]);
 	const [nameFilter, setNameFilter] = useState("");
 	const [categoriesFilter, setCategoriesFilter] = useState<Category[]>([]);
@@ -37,91 +34,110 @@ export default function TransactionsContainer() {
 				return { key: e.id, ...e };
 			});
 			setEntries(entries);
-			setOriginalEntries(entries);
 			const categories = await getCategories();
 			setCategories(categories);
 		}
 		fetchData();
 	}, []);
 
-	async function editEntry(values: any, entry: TableEntry) {
-		console.log(values);
-
+	async function editEntry(values: any, entry: TableEntry, id: number) {
 		const request = await updateEntry({
 			...entry,
 			...values,
 		});
 
-		console.log(request?.status);
+		let filteredEntries = entries;
+
+		/*
+			Substitute the row with the updated data
+		*/
+		filteredEntries[id] = {
+			...entry,
+			...values,
+		};
+
+		console.log("Form submitted!");
+
+		/*
+			If the request fails for any reason, update the table without reloading the data
+			Instead, refresh the actual entries from the database fetching the data again
+		*/
+		if (request?.status !== 200) {
+			alert("Can't update the entry!");
+			setEntries(
+				await (await getEntries()).map((e) => {
+					return { key: e.id, ...e };
+				})
+			);
+		} else {
+			alert("Entry update successfully!");
+			setEntries([...filteredEntries]);
+		}
 	}
 
 	function editRow(entry: TableEntry) {
-		if (!editingEntry) {
-			setEditingEntry(true);
+		const id = entries.indexOf(entry);
 
-			const row = {
-				...entry,
-				description: (
-					<Form
-						name="descriptionForm"
-						initialValues={{
-							description: entry.description,
-						}}
-						onFinish={(values) => editEntry(values, entry)}
-					>
-						<Row gutter={12}>
-							<Col span={12}>
-								<Form.Item name="description">
-									<Input />
-								</Form.Item>
-							</Col>
-							<Col span={12}>
-								<Form.Item>
-									<Button htmlType="submit" type="primary">
-										Submit
-									</Button>
-								</Form.Item>
-							</Col>
-						</Row>
-					</Form>
-				),
-				value: (
-					<Form
-						name="valueForm"
-						initialValues={{
-							value: entry.value,
-						}}
-						onFinish={(values) => editEntry(values, entry)}
-					>
-						<Row gutter={12}>
-							<Col span={12}>
-								<Form.Item name="value">
-									<Input />
-								</Form.Item>
-							</Col>
-							<Col span={12}>
-								<Form.Item>
-									<Button htmlType="submit" type="primary">
-										Submit
-									</Button>
-								</Form.Item>
-							</Col>
-						</Row>
-					</Form>
-				),
-			};
+		/*
+			Substitute the row with an editable one
+		*/
+		const row = {
+			...entry,
+			description: (
+				<Form
+					name="descriptionForm"
+					initialValues={{
+						description: entry.description,
+					}}
+					onFinish={(values) => editEntry(values, entry, id)}
+				>
+					<Row gutter={12}>
+						<Col span={12}>
+							<Form.Item name="description">
+								<Input />
+							</Form.Item>
+						</Col>
+						<Col span={12}>
+							<Form.Item>
+								<Button htmlType="submit" type="primary">
+									Submit
+								</Button>
+							</Form.Item>
+						</Col>
+					</Row>
+				</Form>
+			),
+			value: (
+				<Form
+					name="valueForm"
+					initialValues={{
+						value: entry.value,
+					}}
+					onFinish={(values) => editEntry(values, entry, id)}
+				>
+					<Row gutter={12}>
+						<Col span={12}>
+							<Form.Item name="value">
+								<Input />
+							</Form.Item>
+						</Col>
+						<Col span={12}>
+							<Form.Item>
+								<Button htmlType="submit" type="primary">
+									Submit
+								</Button>
+							</Form.Item>
+						</Col>
+					</Row>
+				</Form>
+			),
+		};
 
-			let filteredEntries = entries.filter((x) => x !== entry);
+		let filteredEntries = entries;
 
-			filteredEntries[entries.indexOf(entry)] = row;
+		filteredEntries[id] = row;
 
-			setEntries([...filteredEntries]);
-		} else restoreFetchedEntries();
-	}
-
-	function restoreFetchedEntries() {
-		setEntries(originalEntries);
-		setEditingEntry(false);
+		setEntries([...filteredEntries]);
 	}
 
 	const filteredEntries = entries
