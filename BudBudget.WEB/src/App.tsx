@@ -19,13 +19,7 @@ const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function App() {
-	const sid =
-		document.cookie.indexOf("sid=") >= 0
-			? document.cookie
-					.split("; ")
-					.map((x) => x.split("="))
-					.filter((v) => v[0] === "sid")[0][1]
-			: "";
+	const sid = localStorage.getItem("sid");
 
 	const [isLoggedIn, setIsLoggedIn] = useState(sid ? true : false);
 
@@ -82,7 +76,17 @@ function App() {
 										key="6"
 										icon={<ApiOutlined />}
 										danger
-										onClick={() => setIsLoggedIn(false)}
+										onClick={() => 
+											{ 
+												/*
+													Simply removing the 'sid' item in the local storage won't update the App container ..
+													.. nor would it refresh the page, thus logging out the user but not actually showing him ..
+													.. the login page, as intended.
+												*/
+												setIsLoggedIn(false);
+												localStorage.removeItem("sid");
+											}
+										}
 									>
 										Logout
 									</Menu.Item>
