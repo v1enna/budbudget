@@ -20,6 +20,7 @@ export default function TransactionsContainer() {
 	const [entries, setEntries] = useState<TableEntry[]>([]);
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [selectedEntries, setSelectedEntries] = useState<TableEntry[]>([]);
+	const [selectedEntriesValue, setSelectedEntriesValue] = useState(0);
 	const [nameFilter, setNameFilter] = useState("");
 	const [categoriesFilter, setCategoriesFilter] = useState<Category[]>([]);
 
@@ -46,7 +47,7 @@ export default function TransactionsContainer() {
 					showSearch
 					mode="multiple"
 					style={{ width: 200 }}
-					placeholder="Categorie"
+					placeholder="Categories"
 					// onChange={onChange}
 					filterOption
 				>
@@ -54,8 +55,27 @@ export default function TransactionsContainer() {
 						return <Option value={c.name}>{c.name}</Option>;
 					})}
 				</Select>
+
+				{ selectedEntries.length !== 0 ?
+					/*
+						Display a button with the overall value of the selected entries.
+						If no entry is selected, leave it blank
+					*/
+					(
+						<Button
+							type="dashed"
+							disabled
+							className={"selected_entries_value " + (selectedEntriesValue > 0 ? "money_in" : "money_out")}
+						>
+							Selected entries value: {selectedEntriesValue}€
+						</Button>
+					) : (
+						<div></div>
+					)
+				}
+
 				<Search
-					placeholder="Cerca..."
+					placeholder="Search..."
 					allowClear
 					onChange={(e) => setNameFilter(e.target.value)}
 					className="search_name"
@@ -69,6 +89,17 @@ export default function TransactionsContainer() {
 						onChange: (keys, rows) => {
 							setSelectedEntries(rows);
 						},
+						/*
+							onSelect is needed to determine if the user either selected or deselected an entry, ..
+							.. which is impossibile with onChange
+						*/
+						onSelect: (record, selected) => {
+							setSelectedEntriesValue(
+								Math.round(
+									selectedEntriesValue + (selected ? record.value : - record.value)
+								)
+							);
+						}
 					}}
 				/>
 			</Content>

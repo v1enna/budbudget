@@ -45,11 +45,11 @@ export default function TransactionsTable(
 
 	const columns: ColumnsType<TableEntry> = [
 		{
-			title: "Data",
+			title: "Date",
 			dataIndex: "datetime",
 			key: "datetime",
 			render: (text: string, r: Entry) =>
-				r.id ? format(r.datetime!, "yyyy-MM-dd") : "CELLA VUOTA",
+				r.id ? format(r.datetime!, "yyyy-MM-dd") : "Empty Slot",
 			sorter: (a: Entry, b: Entry, sortOrder?: SortOrder) => {
 				return sortEmptyAtTop(a, b, sortOrder, (a, b) => {
 					return compareAsc(a.datetime!, b.datetime!);
@@ -58,13 +58,13 @@ export default function TransactionsTable(
 			sortDirections: ["descend", "ascend", "descend"],
 		},
 		{
-			title: "Descrizione",
+			title: "Description",
 			dataIndex: "description",
 			key: "description",
 			sortDirections: ["descend"],
 		},
 		{
-			title: "Valore",
+			title: "Value",
 			dataIndex: "value",
 			key: "value",
 			sorter: (a: Entry, b: Entry, sortOrder?: SortOrder) => {
@@ -75,7 +75,7 @@ export default function TransactionsTable(
 			sortDirections: ["descend", "ascend", "descend"],
 		},
 		{
-			title: "Categoria",
+			title: "Category",
 			key: "category",
 			render: (text: string, record: Entry) =>
 				`${record.category?.name} - ${record.subCategory?.name}`,
