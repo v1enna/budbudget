@@ -1,10 +1,10 @@
 import { Button, Input, Layout, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import TransactionsTable from "../components/TransactionsTable";
-import { useLoginContext } from "../contexts/LoginContext";
+import EntrySummary from "../components/EntrySummary";
 import { Category } from "../models/Category";
 import { Entry } from "../models/Entry";
-import { getCategories, getEntries } from "../services/DataService";
+import { getCategories, getEntries, updateEntry } from "../services/DataService";
 import "./TransactionsContainer.css";
 
 const { Header, Content } = Layout;
@@ -18,6 +18,7 @@ const { Option } = Select;
 
 export default function TransactionsContainer() {
 	const [entries, setEntries] = useState<TableEntry[]>([]);
+	const [entryEditing, setEntryEditing] = useState<TableEntry>();
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [selectedEntries, setSelectedEntries] = useState<TableEntry[]>([]);
 	const [nameFilter, setNameFilter] = useState("");
@@ -36,8 +37,19 @@ export default function TransactionsContainer() {
 	}, []);
 
 	const filteredEntries = entries.filter((e) =>
-		e.description.includes(nameFilter)
-	);
+		e.description.toString().includes(nameFilter)
+	).map((entry) => {
+		return { 
+			...entry, 
+			edit: 
+				<Button
+					type="primary"
+					onClick={() => setEntryEditing(entry)}
+				>
+					Edit
+				</Button>
+		}
+	});
 
 	return (
 		<Layout>
@@ -47,7 +59,6 @@ export default function TransactionsContainer() {
 					mode="multiple"
 					style={{ width: 200 }}
 					placeholder="Categorie"
-					// onChange={onChange}
 					filterOption
 				>
 					{categories.map((c) => {
@@ -62,15 +73,23 @@ export default function TransactionsContainer() {
 				/>
 			</Header>
 			<Content className="content_transactions">
-				<TransactionsTable
-					dataSource={filteredEntries}
-					rowSelection={{
-						type: "checkbox",
-						onChange: (keys, rows) => {
-							setSelectedEntries(rows);
-						},
-					}}
-				/>
+				{ !entryEditing ? (
+					<TransactionsTable
+						dataSource={filteredEntries}
+						rowSelection={{
+							type: "checkbox",
+							onChange: (keys, rows) => {
+								setSelectedEntries(rows);
+							}
+						}}
+					/>
+					) : (
+						<EntrySummary 
+							entry={entryEditing}
+							setEntryEditing={setEntryEditing}
+						/>
+					)
+				}
 			</Content>
 		</Layout>
 	);

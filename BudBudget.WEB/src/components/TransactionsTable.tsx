@@ -58,6 +58,12 @@ export default function TransactionsTable(
 			sortDirections: ["descend", "ascend", "descend"],
 		},
 		{
+			title: "Edit",
+			dataIndex: "edit",
+			key: "edit",
+			sortDirections: ["descend"],
+		},
+		{
 			title: "Descrizione",
 			dataIndex: "description",
 			key: "description",
@@ -69,7 +75,7 @@ export default function TransactionsTable(
 			key: "value",
 			sorter: (a: Entry, b: Entry, sortOrder?: SortOrder) => {
 				return sortEmptyAtTop(a, b, sortOrder, (a, b) => {
-					return a.value - b.value;
+					return Number(a.value) - Number(b.value);
 				});
 			},
 			sortDirections: ["descend", "ascend", "descend"],

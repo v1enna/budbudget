@@ -1,5 +1,5 @@
 import { parseISO } from "date-fns";
-import { API_CATEGORIES_URL, API_FETCHALL_URL } from "../config";
+import { API_CATEGORIES_URL, API_FETCHALL_URL, API_ENTRIES_URL } from "../config";
 import { Entry } from "../models/Entry";
 import { fetchApi } from "./_helpers";
 
@@ -26,3 +26,24 @@ export async function getCategories() {
 		return [];
 	}
 }
+
+export async function updateEntry(entry: Entry): Promise<Number> {
+	try {
+		const response = await fetchApi(
+			API_ENTRIES_URL,
+			"PUT",
+			{
+				categoryId: entry.category?.id,
+				subCategoryId: entry.subCategory?.id,
+				...entry
+			}
+		);
+
+		return response.status;
+	} catch (e) {
+		console.log(e);
+
+		return 404;
+	}
+}
+
