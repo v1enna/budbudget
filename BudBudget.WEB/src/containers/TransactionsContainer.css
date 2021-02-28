@@ -18,3 +18,15 @@
 	justify-self: flex-end;
 	width: auto;
 }
+
+.status {
+	font-weight: 700;
+}
+
+.status .success {
+	color: green;
+}
+
+.status .failure {
+	color: red;
+}

@@ -27,7 +27,7 @@ export async function getCategories() {
 	}
 }
 
-export async function updateEntry(entry: Entry): Promise<Number> {
+export async function updateEntry(entry: Entry) {
 	try {
 		const response = await fetchApi(
 			API_ENTRIES_URL,
@@ -39,11 +39,11 @@ export async function updateEntry(entry: Entry): Promise<Number> {
 			}
 		);
 
-		return response.status;
+		return response;
 	} catch (e) {
 		console.log(e);
 
-		return 404;
+		return null;
 	}
 }
 
