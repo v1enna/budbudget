@@ -34,7 +34,7 @@ export default function EntrySummary(props: {
 					Close
 				</Button>
 			}
-			title="Edit Entry"
+			title={"Edit Entry (" + props.entry.id.toUpperCase() + ")"}
 		>
 			<Form
 				name="editing"
