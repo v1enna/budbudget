@@ -30,3 +30,8 @@
 .status .failure {
 	color: red;
 }
+
+#descriptionForm,
+#valueForm {
+	height: 30px;
+}

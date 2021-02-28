@@ -66,10 +66,7 @@ function App() {
 									Reports
 								</Link>
 							</Menu.Item>
-							<Menu.Item
-								key="5"
-								icon={<SettingOutlined />}
-							>
+							<Menu.Item key="5" icon={<SettingOutlined />}>
 								<Link to="/settings">Settings</Link>
 							</Menu.Item>
 							<Menu.Item

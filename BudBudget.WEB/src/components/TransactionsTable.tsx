@@ -58,12 +58,6 @@ export default function TransactionsTable(
 			sortDirections: ["descend", "ascend", "descend"],
 		},
 		{
-			title: "Edit",
-			dataIndex: "edit",
-			key: "edit",
-			sortDirections: ["descend"],
-		},
-		{
 			title: "Descrizione",
 			dataIndex: "description",
 			key: "description",
@@ -85,6 +79,12 @@ export default function TransactionsTable(
 			key: "category",
 			render: (text: string, record: Entry) =>
 				`${record.category?.name} - ${record.subCategory?.name}`,
+		},
+		{
+			title: "Edit",
+			dataIndex: "edit",
+			key: "edit",
+			sortDirections: ["descend"],
 		},
 	];
 

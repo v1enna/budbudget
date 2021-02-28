@@ -1,10 +1,14 @@
-import { Button, Input, Layout, Select } from "antd";
+import { Button, Col, Form, Input, Layout, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import TransactionsTable from "../components/TransactionsTable";
 import EntrySummary from "../components/EntrySummary";
 import { Category } from "../models/Category";
 import { Entry } from "../models/Entry";
-import { getCategories, getEntries } from "../services/DataService";
+import {
+	getCategories,
+	getEntries,
+	updateEntry,
+} from "../services/DataService";
 import "./TransactionsContainer.css";
 import { EditOutlined } from "@ant-design/icons";
 
@@ -19,8 +23,10 @@ const { Option } = Select;
 
 export default function TransactionsContainer() {
 	const [entries, setEntries] = useState<TableEntry[]>([]);
+	const [originalEntries, setOriginalEntries] = useState<TableEntry[]>([]);
 	const [entryEditing, setEntryEditing] = useState<TableEntry>();
 	const [categories, setCategories] = useState<Category[]>([]);
+	const [editingEntry, setEditingEntry] = useState<boolean>(false);
 	const [selectedEntries, setSelectedEntries] = useState<TableEntry[]>([]);
 	const [nameFilter, setNameFilter] = useState("");
 	const [categoriesFilter, setCategoriesFilter] = useState<Category[]>([]);
@@ -31,26 +37,108 @@ export default function TransactionsContainer() {
 				return { key: e.id, ...e };
 			});
 			setEntries(entries);
+			setOriginalEntries(entries);
 			const categories = await getCategories();
 			setCategories(categories);
 		}
 		fetchData();
 	}, []);
 
-	const filteredEntries = entries.filter((e) =>
-		e.description.toString().includes(nameFilter)
-	).map((entry) => {
-		return { 
-			...entry, 
-			edit: 
-				<EditOutlined
-					style={{ fontSize: 25 }}
-					onClick={() => setEntryEditing(entry)}
-				>
-					Edit
-				</EditOutlined>
-		}
-	});
+	async function editEntry(values: any, entry: TableEntry) {
+		console.log(values);
+
+		const request = await updateEntry({
+			...entry,
+			...values,
+		});
+
+		console.log(request?.status);
+	}
+
+	function editRow(entry: TableEntry) {
+		if (!editingEntry) {
+			setEditingEntry(true);
+
+			const row = {
+				...entry,
+				description: (
+					<Form
+						name="descriptionForm"
+						initialValues={{
+							description: entry.description,
+						}}
+						onFinish={(values) => editEntry(values, entry)}
+					>
+						<Row gutter={12}>
+							<Col span={12}>
+								<Form.Item name="description">
+									<Input />
+								</Form.Item>
+							</Col>
+							<Col span={12}>
+								<Form.Item>
+									<Button htmlType="submit" type="primary">
+										Submit
+									</Button>
+								</Form.Item>
+							</Col>
+						</Row>
+					</Form>
+				),
+				value: (
+					<Form
+						name="valueForm"
+						initialValues={{
+							value: entry.value,
+						}}
+						onFinish={(values) => editEntry(values, entry)}
+					>
+						<Row gutter={12}>
+							<Col span={12}>
+								<Form.Item name="value">
+									<Input />
+								</Form.Item>
+							</Col>
+							<Col span={12}>
+								<Form.Item>
+									<Button htmlType="submit" type="primary">
+										Submit
+									</Button>
+								</Form.Item>
+							</Col>
+						</Row>
+					</Form>
+				),
+			};
+
+			let filteredEntries = entries.filter((x) => x !== entry);
+
+			filteredEntries[entries.indexOf(entry)] = row;
+
+			setEntries([...filteredEntries]);
+		} else restoreFetchedEntries();
+	}
+
+	function restoreFetchedEntries() {
+		setEntries(originalEntries);
+		setEditingEntry(false);
+	}
+
+	const filteredEntries = entries
+		.filter((e) => e.description.toString().includes(nameFilter))
+		.map((entry) => {
+			return {
+				...entry,
+				edit: (
+					<EditOutlined
+						style={{ fontSize: 25 }}
+						onClick={() => editRow(entry)}
+					>
+						Edit
+					</EditOutlined>
+				),
+			};
+		});
 
 	return (
 		<Layout>
@@ -74,23 +162,15 @@ export default function TransactionsContainer() {
 				/>
 			</Header>
 			<Content className="content_transactions">
-				{ !entryEditing ? (
-					<TransactionsTable
-						dataSource={filteredEntries}
-						rowSelection={{
-							type: "checkbox",
-							onChange: (keys, rows) => {
-								setSelectedEntries(rows);
-							}
-						}}
-					/>
-					) : (
-						<EntrySummary 
-							entry={entryEditing}
-							setEntryEditing={setEntryEditing}
-						/>
-					)
-				}
+				<TransactionsTable
+					dataSource={filteredEntries}
+					rowSelection={{
+						type: "checkbox",
+						onChange: (keys, rows) => {
+							setSelectedEntries(rows);
+						},
+					}}
+				/>
 			</Content>
 		</Layout>
 	);

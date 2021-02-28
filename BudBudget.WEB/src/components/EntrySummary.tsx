@@ -1,11 +1,13 @@
-import { Button, Card, Form, Input } from 'antd'
-import React, { useState } from 'react'
-import { TableEntry } from '../containers/TransactionsContainer'
-import { updateEntry } from '../services/DataService';
+import { Button, Card, Form, Input } from "antd";
+import React, { useState } from "react";
+import { TableEntry } from "../containers/TransactionsContainer";
+import { updateEntry } from "../services/DataService";
 
 export default function EntrySummary(props: {
-	entry: TableEntry,
-	setEntryEditing: React.Dispatch<React.SetStateAction<TableEntry | undefined>>
+	entry: TableEntry;
+	setEntryEditing: React.Dispatch<
+		React.SetStateAction<TableEntry | undefined>
+	>;
 }) {
 	const [status, setStatus] = useState<JSX.Element>(<span>Pending...</span>);
 
@@ -13,23 +15,21 @@ export default function EntrySummary(props: {
 		const request = await updateEntry({
 			...props.entry,
 			description: values.description,
-			value: values.value
+			value: values.value,
 		});
 
-		request?.status === 200 ?
-			setStatus(<span className="success">Success!</span>)
-		:
-			setStatus(<span className="failure">Failure!</span>)
+		request?.status === 200
+			? setStatus(<span className="success">Success!</span>)
+			: setStatus(<span className="failure">Failure!</span>);
 	}
 
 	return (
-		<Card 
+		<Card
 			extra={
-				<Button 
+				<Button
 					danger
 					type="primary"
-					onClick={
-						() => props.setEntryEditing(undefined)}
+					onClick={() => props.setEntryEditing(undefined)}
 				>
 					Close
 				</Button>
@@ -44,33 +44,22 @@ export default function EntrySummary(props: {
 					value: props.entry.value,
 				}}
 			>
-				<Form.Item
-					label="Description"
-					name="description"
-				>
+				<Form.Item label="Description" name="description">
 					<Input />
 				</Form.Item>
 
-				<Form.Item
-					label="Value"
-					name="value"
-				>
+				<Form.Item label="Value" name="value">
 					<Input />
 				</Form.Item>
 
 				<Form.Item>
-					<Button
-						htmlType="submit"
-						type="primary"
-					>
+					<Button htmlType="submit" type="primary">
 						Submit
 					</Button>
 				</Form.Item>
 			</Form>
 
-			<div className="status">
-				{status}
-			</div>
+			<div className="status">{status}</div>
 		</Card>
-	)
+	);
 }
