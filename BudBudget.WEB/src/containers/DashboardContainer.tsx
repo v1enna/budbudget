@@ -254,6 +254,7 @@ export default function DashboardContainer() {
 									},
 								]}
 								dataSource={categoryValues}
+								rowKey="categoryName"
 							/>
 						</Card>
 					</Col>
