@@ -1,17 +1,11 @@
-import { Button, Input, Layout, Select } from "antd";
+import { Input, Layout, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import TransactionsTable from "../components/TransactionsTable";
-import { useLoginContext } from "../contexts/LoginContext";
+import TransactionsTable, { TableEntry } from "../components/TransactionsTable";
 import { Category } from "../models/Category";
-import { Entry } from "../models/Entry";
 import { getCategories, getEntries } from "../services/DataService";
 import "./TransactionsContainer.css";
 
 const { Header, Content } = Layout;
-
-export interface TableEntry extends Entry {
-	key: string;
-}
 
 const { Search } = Input;
 const { Option } = Select;
@@ -64,6 +58,7 @@ export default function TransactionsContainer() {
 			<Content className="content_transactions">
 				<TransactionsTable
 					dataSource={filteredEntries}
+					categories={categories}
 					rowSelection={{
 						type: "checkbox",
 						onChange: (keys, rows) => {
