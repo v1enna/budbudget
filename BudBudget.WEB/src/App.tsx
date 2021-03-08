@@ -2,7 +2,6 @@ import {
 	HomeOutlined,
 	ProjectOutlined,
 	SolutionOutlined,
-	UserOutlined,
 	SettingOutlined,
 	ApiOutlined,
 } from "@ant-design/icons";
@@ -15,8 +14,6 @@ import { LoginContext } from "./contexts/LoginContext";
 import Routes from "./Routes";
 
 const { Content, Sider } = Layout;
-
-const { SubMenu } = Menu;
 
 function App() {
 	const sid =
