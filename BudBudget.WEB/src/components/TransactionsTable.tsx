@@ -147,12 +147,12 @@ export default function TransactionsTable(
 
 	const columns: EditableColumn[] = [
 		{
-			title: "Data",
+			title: "Date",
 			dataIndex: "datetime",
 			dataType: EntryDataType.DateTime,
 			key: "datetime",
 			render: (text: string, r: Entry) =>
-				r.id ? format(r.datetime!, "yyyy-MM-dd") : "CELLA VUOTA",
+				r.id ? format(r.datetime!, "yyyy-MM-dd") : "Empty Slot",
 			sorter: (a: Entry, b: Entry, sortOrder?: SortOrder) => {
 				return sortEmptyAtTop(a, b, sortOrder, (a, b) => {
 					return compareAsc(a.datetime!, b.datetime!);
@@ -161,14 +161,14 @@ export default function TransactionsTable(
 			sortDirections: ["descend", "ascend", "descend"],
 		},
 		{
-			title: "Descrizione",
+			title: "Description",
 			dataIndex: "description",
 			dataType: EntryDataType.Text,
 			key: "description",
 			sortDirections: ["descend"],
 		},
 		{
-			title: "Valore",
+			title: "Value",
 			dataIndex: "value",
 			dataType: EntryDataType.Money,
 			key: "value",
@@ -180,7 +180,7 @@ export default function TransactionsTable(
 			sortDirections: ["descend", "ascend", "descend"],
 		},
 		{
-			title: "Categoria",
+			title: "Category",
 			key: "category",
 			dataType: EntryDataType.Category,
 			dataIndex: ["category", "name"],
