@@ -8,9 +8,10 @@ import { fetchApi } from "./_helpers";
  */
 export async function Authenticate(
 	username: string,
-	password: string
+	password: string,
+	remember: boolean
 ): Promise<string> {
-	const reqBody = { username: username, password: password };
+	const reqBody = { username: username, password: password};
 
 	const response = await fetchApi(API_LOGIN_URL, "POST", reqBody);
 
@@ -19,7 +20,7 @@ export async function Authenticate(
 	// { sid: string }
 	const session = await response.json();
 
-	localStorage.setItem("sid", session.sid);
+	remember? localStorage.setItem("sid", session.sid):sessionStorage.setItem("sid",session.sid);
 
 	return session.sid;
 }
