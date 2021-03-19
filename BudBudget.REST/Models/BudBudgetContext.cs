@@ -26,6 +26,10 @@ namespace BudBudget.REST.Models
 			modelBuilder.Entity<User>()
 				.HasIndex(u => u.Username)
 				.IsUnique();
+
+			modelBuilder.Entity<User>()
+				.HasIndex(u => u.Email)
+				.IsUnique();
 		}
 
 		public DbSet<Entry> Entries { get; set; }

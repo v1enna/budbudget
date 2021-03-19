@@ -75,6 +75,11 @@ namespace BudBudget.REST.Controllers
 				return BadRequest(new { message = "User not valid." });
 			}
 
+			if (user == null || string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Email))
+			{
+				return BadRequest(new { message = "Email not valid." });
+			}
+
 			if (await context.Users.SingleOrDefaultAsync(u => u.Username == user.Username) != null)
 			{
 				return BadRequest(new { message = "User already exist." });
@@ -82,6 +87,7 @@ namespace BudBudget.REST.Controllers
 
 			var newUser = new User
 			{
+				Email = user.Email,
 				Username = user.Username,
 				PasswordHash = HashPassword(user.Password)
 			};
