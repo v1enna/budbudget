@@ -1,4 +1,4 @@
-import { Input, Layout, Select, Button } from "antd";
+import { Button, Input, Layout, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import TransactionsTable, { TableEntry } from "../components/TransactionsTable";
 import { Category } from "../models/Category";
@@ -50,23 +50,26 @@ export default function TransactionsContainer() {
 					})}
 				</Select>
 
-				{ selectedEntries.length !== 0 ?
+				{selectedEntries.length !== 0 ? (
 					/*
 						Display a button with the overall value of the selected entries.
 						If no entry is selected, leave it blank
 					*/
-					(
-						<Button
-							type="dashed"
-							disabled
-							className={"selected_entries_value " + (selectedEntriesValue > 0 ? "money_in" : "money_out")}
-						>
-							Selected entries value: {selectedEntriesValue}€
-						</Button>
-					) : (
-						<div></div>
-					)
-				}
+					<Button
+						type="dashed"
+						disabled
+						className={
+							"selected_entries_value " +
+							(selectedEntriesValue > 0
+								? "money_in"
+								: "money_out")
+						}
+					>
+						Selected entries value: {selectedEntriesValue}€
+					</Button>
+				) : (
+					<div></div>
+				)}
 
 				<Search
 					placeholder="Search..."
@@ -91,10 +94,13 @@ export default function TransactionsContainer() {
 						onSelect: (record, selected) => {
 							setSelectedEntriesValue(
 								Math.round(
-									selectedEntriesValue + (selected ? record.value : - record.value)
+									selectedEntriesValue +
+										(selected
+											? record.value
+											: -record.value)
 								)
 							);
-						}
+						},
 					}}
 				/>
 			</Content>

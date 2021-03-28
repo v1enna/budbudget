@@ -70,14 +70,9 @@ namespace BudBudget.REST.Controllers
 		[HttpPost("register")]
 		public async Task<ActionResult<UserDto>> Register([FromBody] UserDto user)
 		{
-			if (user == null || string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password))
+			if (user == null || string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.Email))
 			{
 				return BadRequest(new { message = "User not valid." });
-			}
-
-			if (user == null || string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Email))
-			{
-				return BadRequest(new { message = "Email not valid." });
 			}
 
 			if (await context.Users.SingleOrDefaultAsync(u => u.Username == user.Username) != null)

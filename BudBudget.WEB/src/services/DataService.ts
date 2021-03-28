@@ -2,7 +2,7 @@ import { parseISO } from "date-fns";
 import {
 	API_CATEGORIES_URL,
 	API_ENTRIES_URL,
-	API_FETCHALL_URL,
+	API_FETCHALL_URL
 } from "../config";
 import { Entry } from "../models/Entry";
 import { fetchApi } from "./_helpers";

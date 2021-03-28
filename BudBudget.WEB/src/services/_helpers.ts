@@ -1,16 +1,16 @@
-export function checkLogStatus(){
-	if(localStorage.getItem("sid")){
+export function checkLogStatus() {
+	if (localStorage.getItem("sid")) {
 		return localStorage.getItem("sid");
-	}else{
+	} else {
 		return sessionStorage.getItem("sid");
 	}
 }
 
 function authHeaders() {
-	if(checkLogStatus()){
-		return { Authorization: "Bearer "+checkLogStatus()}
+	if (checkLogStatus()) {
+		return { Authorization: "Bearer " + checkLogStatus() };
 	}
-	return {Authorization: ""}
+	return { Authorization: "" };
 
 	// if (localStorage.getItem("sid")) {
 	// 	return { Authorization: "Bearer " + localStorage.getItem("sid") };

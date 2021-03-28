@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import TransactionsContainer from "./containers/TransactionsContainer";
 import DashboardContainer from "./containers/DashboardContainer";
+import TransactionsContainer from "./containers/TransactionsContainer";
 
 export default function Routes() {
 	return (

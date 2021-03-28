@@ -1,10 +1,10 @@
-import "./LoginPage.css";
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Col, Form, Input, Menu, Row, Space } from "antd";
+import { Store } from "antd/lib/form/interface";
 import React, { useState } from "react";
-import { Space, Form, Row, Input, Menu, Col, Checkbox, Button } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Authenticate } from "../services/LoginService";
 import { Register } from "../services/RegisterService";
-import { Store } from "antd/lib/form/interface";
+import "./LoginPage.css";
 
 interface LoginFormData {
 	username: string;
@@ -52,7 +52,9 @@ export default function LoginPage(props: LoginPageProps) {
 			formData.email
 		);
 
-		returnValue ? setCurrentTab("login") : setMessaggeError("Dati duplicati!");
+		returnValue
+			? setCurrentTab("login")
+			: setMessaggeError("Dati duplicati!");
 	}
 
 	const switchTab = (e: any) => {
@@ -79,7 +81,11 @@ export default function LoginPage(props: LoginPageProps) {
 						padding: "5em  0 ",
 					}}
 				>
-					<Space direction="vertical" size="large" style={{ width: "80%" }}>
+					<Space
+						direction="vertical"
+						size="large"
+						style={{ width: "80%" }}
+					>
 						<div className="vertical">
 							<h1 className="logo">BudBudget</h1>
 							<p>Less time planning, more time enjoying</p>
@@ -99,32 +105,51 @@ export default function LoginPage(props: LoginPageProps) {
 						</Menu>
 
 						{currentTab === "login" ? (
-							<Form className="login_form" size="large" onFinish={tryLogin}>
+							<Form
+								className="login_form"
+								size="large"
+								onFinish={tryLogin}
+							>
 								<Form.Item
 									name="username"
 									rules={[
-										{ required: true, message: "Please input your username!" },
+										{
+											required: true,
+											message:
+												"Please input your username!",
+										},
 									]}
 								>
 									<Input
-										prefix={<UserOutlined className="site-form-item-icon" />}
+										prefix={
+											<UserOutlined className="site-form-item-icon" />
+										}
 										placeholder="Username"
 									/>
 								</Form.Item>
 								<Form.Item
 									name="password"
 									rules={[
-										{ required: true, message: "Please input your password!" },
+										{
+											required: true,
+											message:
+												"Please input your password!",
+										},
 									]}
 								>
 									<Input
-										prefix={<LockOutlined className="site-form-item-icon" />}
+										prefix={
+											<LockOutlined className="site-form-item-icon" />
+										}
 										type="password"
 										placeholder="Password"
 									/>
 								</Form.Item>
 								<Form.Item>
-									<Form.Item name="remember" valuePropName="checked">
+									<Form.Item
+										name="remember"
+										valuePropName="checked"
+									>
 										<Checkbox>Remember me</Checkbox>
 									</Form.Item>
 
@@ -137,7 +162,10 @@ export default function LoginPage(props: LoginPageProps) {
 										Login
 									</Button>
 
-									<div className="message_error" style={{ color: "red" }}>
+									<div
+										className="message_error"
+										style={{ color: "red" }}
+									>
 										{messaggeError}
 									</div>
 								</Form.Item>
@@ -151,33 +179,50 @@ export default function LoginPage(props: LoginPageProps) {
 								<Form.Item
 									name="username"
 									rules={[
-										{ required: true, message: "Please input your username!" },
+										{
+											required: true,
+											message:
+												"Please input your username!",
+										},
 									]}
 								>
 									<Input
-										prefix={<UserOutlined className="site-form-item-icon" />}
+										prefix={
+											<UserOutlined className="site-form-item-icon" />
+										}
 										placeholder="Username"
 									/>
 								</Form.Item>
 								<Form.Item
 									name="email"
 									rules={[
-										{ required: true, message: "Please input your email!" },
+										{
+											required: true,
+											message: "Please input your email!",
+										},
 									]}
 								>
 									<Input
-										prefix={<MailOutlined className="site-form-item-icon" />}
+										prefix={
+											<MailOutlined className="site-form-item-icon" />
+										}
 										placeholder="Email"
 									/>
 								</Form.Item>
 								<Form.Item
 									name="password"
 									rules={[
-										{ required: true, message: "Please input your password!" },
+										{
+											required: true,
+											message:
+												"Please input your password!",
+										},
 									]}
 								>
 									<Input
-										prefix={<LockOutlined className="site-form-item-icon" />}
+										prefix={
+											<LockOutlined className="site-form-item-icon" />
+										}
 										type="password"
 										placeholder="Password"
 									/>
@@ -192,7 +237,10 @@ export default function LoginPage(props: LoginPageProps) {
 										Register
 									</Button>
 
-									<div className="message_error" style={{ color: "red" }}>
+									<div
+										className="message_error"
+										style={{ color: "red" }}
+									>
 										{messaggeError}
 									</div>
 								</Form.Item>

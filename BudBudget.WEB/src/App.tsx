@@ -1,12 +1,13 @@
 import {
+	ApiOutlined,
 	HomeOutlined,
 	ProjectOutlined,
+	SettingOutlined,
 	SolutionOutlined,
 	UserOutlined,
-	SettingOutlined,
-	ApiOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import "antd/dist/antd.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
@@ -25,7 +26,9 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(sid ? true : false);
 
 	if (!isLoggedIn) {
-		return <LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />;
+		return (
+			<LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+		);
 	} else {
 		return (
 			<LoginContext.Provider
@@ -59,9 +62,16 @@ function App() {
 									Reports
 								</Link>
 							</Menu.Item>
-							<SubMenu key="sub1" title="User" icon={<UserOutlined />}>
+							<SubMenu
+								key="sub1"
+								title="User"
+								icon={<UserOutlined />}
+							>
 								<Menu.ItemGroup>
-									<Menu.Item key="5" icon={<SettingOutlined />}>
+									<Menu.Item
+										key="5"
+										icon={<SettingOutlined />}
+									>
 										<Link to="/settings">Settings</Link>
 									</Menu.Item>
 									<Menu.Item

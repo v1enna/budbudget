@@ -9,9 +9,9 @@ import { fetchApi } from "./_helpers";
 export async function Register(
 	username: string,
 	password: string,
-	email:string
+	email: string
 ): Promise<boolean> {
-	const reqBody = { username: username, password: password, email:email };
+	const reqBody = { username: username, password: password, email: email };
 
 	const response = await fetchApi(API_REGISTER_URL, "POST", reqBody);
 
