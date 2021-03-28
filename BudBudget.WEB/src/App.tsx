@@ -1,10 +1,8 @@
 import {
+	AreaChartOutlined,
 	HomeOutlined,
-	ProjectOutlined,
 	SolutionOutlined,
 	UserOutlined,
-	SettingOutlined,
-	ApiOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
@@ -38,7 +36,7 @@ function App() {
 				<Layout hasSider>
 					<Sider width={200}>
 						<Menu
-							mode="vertical"
+							mode="inline"
 							className="sider_menu"
 							defaultSelectedKeys={["1"]}
 						>
@@ -54,43 +52,38 @@ function App() {
 									Transazioni
 								</Link>
 							</Menu.Item>
-							<Menu.Item key="3">
-								<Link to="/reports">
-									<ProjectOutlined />
-									Reports
-								</Link>
-							</Menu.Item>
 							<SubMenu
 								key="sub1"
+								title="Reports"
+								icon={<AreaChartOutlined />}
+							>
+								<Menu.Item key="3">
+									<Link to="/reports">Report 1</Link>
+								</Menu.Item>
+							</SubMenu>
+							<SubMenu
+								key="sub2"
 								title="User"
 								icon={<UserOutlined />}
 							>
-								<Menu.ItemGroup>
-									<Menu.Item
-										key="5"
-										icon={<SettingOutlined />}
-									>
-										<Link to="/settings">Settings</Link>
-									</Menu.Item>
-									<Menu.Item
-										key="6"
-										icon={<ApiOutlined />}
-										danger
-										onClick={() => 
-											{ 
-												/*
+								<Menu.Item key="4">
+									<Link to="/settings">Settings</Link>
+								</Menu.Item>
+								<Menu.Item
+									key="5"
+									danger
+									onClick={() => {
+										/*
 													Simply removing the 'sid' item in the local storage won't update the App container ..
 													.. nor would it refresh the page, thus logging out the user but not actually showing him ..
 													.. the login page, as intended.
 												*/
-												setIsLoggedIn(false);
-												localStorage.removeItem("sid");
-											}
-										}
-									>
-										Logout
-									</Menu.Item>
-								</Menu.ItemGroup>
+										setIsLoggedIn(false);
+										localStorage.removeItem("sid");
+									}}
+								>
+									Logout
+								</Menu.Item>
 							</SubMenu>
 						</Menu>
 					</Sider>
