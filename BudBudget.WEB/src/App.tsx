@@ -1,25 +1,27 @@
 import {
+	ApiOutlined,
 	HomeOutlined,
 	ProjectOutlined,
+	SettingOutlined,
 	SolutionOutlined,
 	UserOutlined,
-	SettingOutlined,
-	ApiOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import "antd/dist/antd.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./containers/LoginPage";
 import { LoginContext } from "./contexts/LoginContext";
 import Routes from "./Routes";
+import { checkLogStatus } from "./services/_helpers";
 
 const { Content, Sider } = Layout;
 
 const { SubMenu } = Menu;
 
 function App() {
-	const sid = localStorage.getItem("sid");
+	const sid = checkLogStatus();
 
 	const [isLoggedIn, setIsLoggedIn] = useState(sid ? true : false);
 
@@ -76,17 +78,19 @@ function App() {
 										key="6"
 										icon={<ApiOutlined />}
 										danger
-										onClick={() => 
-											{ 
-												/*
+										onClick={() => {
+											/*
 													Simply removing the 'sid' item in the local storage won't update the App container ..
 													.. nor would it refresh the page, thus logging out the user but not actually showing him ..
 													.. the login page, as intended.
 												*/
-												setIsLoggedIn(false);
+											setIsLoggedIn(false);
+											if (localStorage.getItem("sid")) {
 												localStorage.removeItem("sid");
+											} else {
+												sessionStorage.clear();
 											}
-										}
+										}}
 									>
 										Logout
 									</Menu.Item>

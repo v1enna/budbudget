@@ -1,10 +1,10 @@
 import { Card, Col, Layout, Row, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import MonthlySummary from "../components/MonthlySummary";
 import CategoriesSummaryGraph from "../components/CategoriesSummaryGraph";
+import MonthlySummary from "../components/MonthlySummary";
 import { Category } from "../models/Category";
 import { Entry } from "../models/Entry";
-import { getEntries, getCategories } from "../services/DataService";
+import { getCategories, getEntries } from "../services/DataService";
 import "./DashboardContainer.css";
 
 const { Content } = Layout;

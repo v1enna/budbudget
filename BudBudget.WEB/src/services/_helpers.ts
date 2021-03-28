@@ -1,11 +1,25 @@
-function authHeaders() {
-	const sid = localStorage.getItem("sid");
-
-	if (sid) {
-		return { Authorization: "Bearer " + sid };
+export function checkLogStatus() {
+	if (localStorage.getItem("sid")) {
+		return localStorage.getItem("sid");
 	} else {
-		return { Authorization: "" };
+		return sessionStorage.getItem("sid");
 	}
+}
+
+function authHeaders() {
+	if (checkLogStatus()) {
+		return { Authorization: "Bearer " + checkLogStatus() };
+	}
+	return { Authorization: "" };
+
+	// if (localStorage.getItem("sid")) {
+	// 	return { Authorization: "Bearer " + localStorage.getItem("sid") };
+	// } else if(sessionStorage.getItem("sid")){
+	// 	return { Authorization: "Bearer " + sessionStorage.getItem("sid") };
+	// } else
+	// {
+	// 	return { Authorization: "" };
+	// }
 }
 
 /**
