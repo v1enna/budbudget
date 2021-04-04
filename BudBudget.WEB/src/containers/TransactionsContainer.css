@@ -22,12 +22,20 @@
 .selected_entries_value {
 	cursor: default !important;
 	color: rgba(0, 0, 0, 0.85) !important;
-    background: #fff !important;
-    border-color: #d9d9d9 !important;
-    border-style: dashed !important;
+	background: #fff !important;
+	border-color: #d9d9d9 !important;
+	border-style: dashed !important;
 	font-weight: 700;
 }
 
 .selected_entries_value:hover {
-    color: rgba(0, 0, 0, 0.85);
+	color: rgba(0, 0, 0, 0.85);
+}
+
+.money_in {
+	color: green;
+}
+
+.money_out {
+	color: darkred;
 }

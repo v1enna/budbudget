@@ -1,0 +1,56 @@
+.header_reports {
+	/* height: 20g0px; */
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	padding-left: 30px;
+}
+
+.categories_picker {
+	padding-top: 15px;
+}
+
+.checkbox_group {
+	display: flex;
+	flex-direction: column;
+	padding-left: 15px;
+	padding-bottom: 10px;
+}
+
+.check_all {
+	padding-top: 5px;
+	padding-left: 15px;
+	padding-bottom: 15px;
+}
+
+.date_picker {
+	margin-left: 30px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.content_reports {
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.total_alert {
+	cursor: default;
+	color: rgba(0, 0, 0, 0.85);
+	background: #fff;
+	border-color: #d9d9d9;
+	border-style: dashed;
+	font-weight: 700;
+	margin-left: 30px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.money_in {
+	color: green;
+}
+
+.money_out {
+	color: darkred;
+}
